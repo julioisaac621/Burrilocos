@@ -1,0 +1,3983 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BURRILOCOS — Burritos Artesanales & Refrescos | I.E. San Mateo</title>
+    
+    <!-- Google Fonts Premium -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Italianno&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+
+    <script>document.documentElement.classList.add('js');</script>
+    <style>
+        /* ==========================================================================
+           1. RESET & VARIABLES DE IDENTIDAD
+           ========================================================================== */
+        :root {
+            --bg-deep: #06170F;
+            --bg-card: #0B2117;
+            --bg-card-hover: #0F2D20;
+            --bg-surface: #0E291C;
+            --gold: #D8B46A;
+            --gold-light: #F0D597;
+            --gold-dark: #A88339;
+            --cream: #F4EBD5;
+            --cream-bg: #EFE7D2;
+            --cream-dark: #2B3830;
+            --white: #FFFFFF;
+            --emerald-glow: #2DE080;
+            --whatsapp-green: #25D366;
+            --transition-smooth: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--cream);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.5;
+        }
+
+        .font-serif { font-family: 'Playfair Display', Georgia, serif; }
+        .font-script { font-family: 'Caveat', cursive; }
+        .font-calligraphy { font-family: 'Italianno', cursive; }
+
+        /* ==========================================================================
+           2. ANIMACIONES EDITORIALES & MICRO-INTERACCIONES
+           ========================================================================== */
+        @keyframes swayGentle {
+            0%, 100% { transform: rotate(0deg) translate3d(0, 0, 0); }
+            50% { transform: rotate(1.8deg) translate3d(-4px, -6px, 0); }
+        }
+        @keyframes swayGentleRev {
+            0%, 100% { transform: rotate(0deg) translate3d(0, 0, 0); }
+            50% { transform: rotate(-1.9deg) translate3d(5px, -5px, 0); }
+        }
+        @keyframes floatStar {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(0.8deg); }
+        }
+        @keyframes floatSec {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-6px) rotate(-1deg); }
+        }
+        @keyframes riseBubble {
+            0% { transform: translateY(14px) scale(0.7); opacity: 0; }
+            50% { opacity: 0.85; }
+            100% { transform: translateY(-18px) scale(1.1); opacity: 0; }
+        }
+        @keyframes mouseBob {
+            0%, 100% { transform: translateY(0); opacity: 0.85; }
+            50% { transform: translateY(5px); opacity: 0.25; }
+        }
+        @keyframes toastSlide {
+            0% { transform: translateY(30px) scale(0.95); opacity: 0; }
+            100% { transform: translateY(0) scale(1); opacity: 1; }
+        }
+        @keyframes badgePop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.4); }
+            100% { transform: scale(1); }
+        }
+        @keyframes pricePulse {
+            0% { transform: scale(1); color: var(--gold); }
+            50% { transform: scale(1.12); color: var(--gold-light); }
+            100% { transform: scale(1); color: var(--gold); }
+        }
+
+        .animate-sway { animation: swayGentle 7s ease-in-out infinite; }
+        .animate-sway-rev { animation: swayGentleRev 8.5s ease-in-out infinite; }
+        .animate-float-star { animation: floatStar 5.5s ease-in-out infinite; }
+        .animate-float-sec { animation: floatSec 6.5s ease-in-out infinite; }
+        .bubble-1 { animation: riseBubble 2.5s ease-in infinite; }
+        .bubble-2 { animation: riseBubble 3.2s ease-in infinite 0.8s; }
+        .bubble-3 { animation: riseBubble 2.8s ease-in infinite 1.4s; }
+        .mouse-dot { animation: mouseBob 1.6s ease-in-out infinite; }
+
+        .price-popping {
+            animation: pricePulse 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .cart-badge-popping {
+            animation: badgePop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, ::before, ::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        .botanical-leaf {
+            position: absolute;
+            pointer-events: none;
+            user-select: none;
+            z-index: 20;
+        }
+
+        /* ==========================================================================
+           3. COMPACT HEADER (~60px)
+           ========================================================================== */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 60;
+            width: 100%;
+            height: 60px;
+            background: rgba(6, 23, 15, 0.95);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(216, 180, 106, 0.22);
+            padding: 0 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        @media (min-width: 1024px) {
+            header { padding: 0 3.5rem; }
+        }
+
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            text-decoration: none;
+            color: var(--gold);
+        }
+
+        .brand-flame {
+            width: 24px;
+            height: 24px;
+            fill: var(--gold);
+            filter: drop-shadow(0 0 6px rgba(216, 180, 106, 0.45));
+            transition: var(--transition-smooth);
+        }
+        .brand-container:hover .brand-flame {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        .brand-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+        }
+
+        nav.nav-links {
+            display: none;
+            gap: 2rem;
+            font-size: 0.84rem;
+            font-weight: 500;
+            letter-spacing: 0.04em;
+        }
+
+        @media (min-width: 890px) {
+            nav.nav-links { display: flex; align-items: center; }
+        }
+
+        nav.nav-links a {
+            color: rgba(244, 235, 213, 0.82);
+            text-decoration: none;
+            position: relative;
+            padding: 0.4rem 0;
+            transition: var(--transition-smooth);
+        }
+
+        nav.nav-links a:hover, nav.nav-links a.active {
+            color: var(--gold);
+        }
+
+        nav.nav-links a.active::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gold);
+            border-radius: 2px;
+            box-shadow: 0 0 8px rgba(216, 180, 106, 0.5);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+        }
+
+        .btn-cart-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.45rem 1.15rem;
+            border-radius: 9999px;
+            border: 1px solid var(--gold);
+            background: transparent;
+            color: var(--cream);
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            text-decoration: none;
+            position: relative;
+        }
+
+        .btn-cart-toggle:hover {
+            background: var(--gold);
+            color: var(--bg-deep);
+            box-shadow: 0 0 16px rgba(216, 180, 106, 0.35);
+        }
+
+        .cart-badge {
+            background: var(--gold);
+            color: var(--bg-deep);
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 0.1rem 0.48rem;
+            border-radius: 999px;
+            min-width: 18px;
+            text-align: center;
+            line-height: 1.2;
+            transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .btn-cart-toggle:hover .cart-badge {
+            background: var(--bg-deep);
+            color: var(--gold);
+        }
+
+        .hamburger-btn {
+            display: block;
+            background: none;
+            border: none;
+            color: var(--gold);
+            cursor: pointer;
+            padding: 0.3rem;
+        }
+        @media (min-width: 890px) {
+            .hamburger-btn { display: none; }
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            width: 100%;
+            background: rgba(11, 33, 23, 0.98);
+            border-bottom: 1px solid rgba(216, 180, 106, 0.3);
+            padding: 1.5rem;
+            flex-direction: column;
+            gap: 1.1rem;
+            z-index: 55;
+            backdrop-filter: blur(14px);
+        }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu a {
+            color: var(--cream);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        .mobile-menu a:hover { color: var(--gold); }
+
+        /* ==========================================================================
+           4. HOMEPAGE / FIRST VIEWPORT (1440 x 900)
+           ========================================================================== */
+        .hero-viewport {
+            position: relative;
+            width: 100%;
+            min-height: calc(100vh - 60px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .hero-main {
+            position: relative;
+            z-index: 10;
+            max-width: 1440px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 1.5rem 1.5rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            align-items: center;
+            gap: 2rem;
+            flex: 1;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-main {
+                grid-template-columns: 5fr 7fr;
+                padding: 1rem 3.5rem;
+                gap: 2.5rem;
+            }
+        }
+
+        .hero-left-stack {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            z-index: 20;
+        }
+
+        .official-logo-badge {
+            width: 86px;
+            height: 86px;
+            object-fit: contain;
+            margin-bottom: 0.65rem;
+            filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.65));
+            transition: var(--transition-smooth);
+        }
+        .official-logo-badge:hover { transform: scale(1.06); }
+
+        .hero-subtitle-tag {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.28em;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 0.2rem;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.4rem, 4.2vw, 3.5rem);
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1.05;
+            letter-spacing: -0.01em;
+        }
+
+        .hero-slogan-cursive {
+            font-family: 'Italianno', cursive;
+            font-size: clamp(2.4rem, 4.2vw, 3.4rem);
+            color: var(--gold);
+            line-height: 0.95;
+            margin-top: 0.2rem;
+            margin-bottom: 0.65rem;
+            text-shadow: 0 2px 10px rgba(216, 180, 106, 0.25);
+        }
+
+        .hero-description {
+            font-size: 0.88rem;
+            color: rgba(244, 235, 213, 0.85);
+            max-width: 360px;
+            line-height: 1.5;
+            margin-bottom: 1.3rem;
+            font-weight: 400;
+        }
+
+        .btn-gold-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.6rem 1.7rem;
+            border-radius: 9999px;
+            background: var(--gold);
+            color: var(--bg-deep);
+            font-size: 0.83rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            text-decoration: none;
+            box-shadow: 0 6px 20px rgba(216, 180, 106, 0.3);
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-gold-pill:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(216, 180, 106, 0.45);
+        }
+
+        .hero-right-stage {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .callout-experience {
+            position: absolute;
+            top: -2.4rem;
+            right: 1.2rem;
+            z-index: 30;
+            pointer-events: none;
+            user-select: none;
+            text-align: right;
+        }
+
+        .callout-text {
+            font-family: 'Caveat', cursive;
+            font-size: clamp(1.25rem, 1.8vw, 1.6rem);
+            color: var(--gold);
+            line-height: 1.15;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .callout-heart {
+            display: inline-block;
+            color: var(--gold);
+            margin-left: 0.35rem;
+        }
+
+        .callout-arrow-svg {
+            margin-right: 2rem;
+            margin-top: 0.2rem;
+        }
+
+        .video-food-frame {
+            position: relative;
+            width: 100%;
+            max-width: 610px;
+            aspect-ratio: 16 / 9.8;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85);
+            border: 1px solid rgba(216, 180, 106, 0.22);
+            background: #000;
+        }
+
+        .video-food-frame iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            transform: scale(1.04);
+            pointer-events: none;
+        }
+
+        .video-fallback-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            background-image: url('https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=1200&q=80');
+            z-index: -1;
+        }
+
+        .video-vignette {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: linear-gradient(to top, rgba(6,23,15,0.7) 0%, transparent 50%, rgba(6,23,15,0.3) 100%);
+        }
+
+        .mouse-scroll-indicator {
+            display: none;
+            justify-content: center;
+            margin-bottom: -0.6rem;
+            z-index: 30;
+        }
+        @media (min-width: 1024px) {
+            .mouse-scroll-indicator { display: flex; }
+        }
+
+        .mouse-pill {
+            width: 22px;
+            height: 36px;
+            border-radius: 9999px;
+            border: 1.5px solid rgba(244, 235, 213, 0.5);
+            display: flex;
+            justify-content: center;
+            padding-top: 5px;
+            background: rgba(6, 23, 15, 0.65);
+        }
+        .mouse-inner-dot {
+            width: 3.5px;
+            height: 7px;
+            border-radius: 999px;
+            background: var(--gold);
+        }
+
+        /* ==========================================================================
+           5. FRANJA DE VALORES (CREMA #EFE7D2)
+           ========================================================================== */
+        .values-strip {
+            position: relative;
+            z-index: 25;
+            width: 100%;
+            background: var(--cream-bg);
+            color: var(--bg-deep);
+            padding: 1.25rem 1rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+        }
+
+        .values-grid {
+            max-width: 1340px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1.2rem;
+        }
+
+        @media (min-width: 640px) {
+            .values-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+        @media (min-width: 1024px) {
+            .values-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 0;
+            }
+            .values-col:not(:last-child) {
+                border-right: 1px solid rgba(6, 23, 15, 0.12);
+            }
+        }
+
+        .values-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        .values-icon-bubble {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 1px solid rgba(6, 23, 15, 0.22);
+            background: rgba(255, 255, 255, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bg-deep);
+            margin-bottom: 0.5rem;
+            transition: var(--transition-smooth);
+        }
+        .values-col:hover .values-icon-bubble {
+            transform: scale(1.1);
+            border-color: var(--gold-dark);
+            color: var(--gold-dark);
+        }
+
+        .values-title {
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--bg-deep);
+            margin-bottom: 0.2rem;
+        }
+
+        .values-desc {
+            font-size: 0.74rem;
+            color: rgba(6, 23, 15, 0.75);
+            max-width: 210px;
+            line-height: 1.35;
+        }
+
+        /* ==========================================================================
+           6. CARTA GASTRONÓMICA EDITORIAL (STAGE 2)
+           ========================================================================== */
+        .menu-section {
+            position: relative;
+            z-index: 20;
+            padding: 5rem 1.5rem 6rem;
+            background: var(--bg-deep);
+            border-top: 1px solid rgba(216, 180, 106, 0.2);
+            overflow: hidden;
+        }
+
+        @media (min-width: 1024px) {
+            .menu-section { padding: 6rem 3.5rem 7rem; }
+        }
+
+        .menu-header-wrap {
+            text-align: center;
+            max-width: 680px;
+            margin: 0 auto 3.8rem;
+        }
+
+        .menu-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.4rem;
+        }
+        .menu-eyebrow-line {
+            width: 32px;
+            height: 1px;
+            background: rgba(216, 180, 106, 0.6);
+        }
+        .menu-eyebrow-text {
+            font-family: 'Italianno', cursive;
+            font-size: 2.2rem;
+            color: var(--gold);
+        }
+
+        .menu-main-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 3.5vw, 2.8rem);
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1.15;
+            letter-spacing: -0.01em;
+        }
+
+        .menu-intro-p {
+            font-size: 0.88rem;
+            color: rgba(244, 235, 213, 0.78);
+            margin-top: 0.8rem;
+            line-height: 1.6;
+        }
+
+        /* 🌟 STAR: BURRITO DE LA CASA ($6.000) */
+        .star-product-card {
+            position: relative;
+            max-width: 1280px;
+            margin: 0 auto 4rem;
+            background: linear-gradient(135deg, #0B2117 0%, #0E2B1E 60%, #081B12 100%);
+            border: 1px solid rgba(216, 180, 106, 0.45);
+            border-radius: 24px;
+            padding: 2rem 1.5rem;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+            transition: var(--transition-smooth);
+        }
+        .star-product-card:hover {
+            border-color: rgba(216, 180, 106, 0.7);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.9);
+        }
+
+        @media (min-width: 1024px) {
+            .star-product-card {
+                padding: 3rem 3.5rem;
+                display: grid;
+                grid-template-columns: 6fr 6fr;
+                gap: 3.5rem;
+                align-items: center;
+            }
+        }
+
+        .star-badge-ribbon {
+            position: absolute;
+            top: 0;
+            right: 2rem;
+            background: var(--gold);
+            color: var(--bg-deep);
+            font-size: 0.68rem;
+            font-weight: 800;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            padding: 0.35rem 1.25rem;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .star-visual-stage {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        @media (min-width: 1024px) {
+            .star-visual-stage { margin-bottom: 0; }
+        }
+
+        .star-callout {
+            position: absolute;
+            top: -1.8rem;
+            left: 0.5rem;
+            font-family: 'Caveat', cursive;
+            font-size: 1.65rem;
+            color: var(--gold);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .star-render-svg-wrap {
+            width: 100%;
+            max-width: 480px;
+            filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.9));
+            transition: transform 0.4s ease;
+        }
+        .star-render-svg-wrap:hover { transform: scale(1.03); }
+
+        .star-ingredients-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .ing-tag {
+            font-size: 0.7rem;
+            font-weight: 600;
+            background: #143A27;
+            color: var(--gold);
+            border: 1px solid rgba(216, 180, 106, 0.3);
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+        }
+
+        .star-details-col {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .star-sub-label {
+            font-family: 'Italianno', cursive;
+            font-size: 2.2rem;
+            color: var(--gold);
+            line-height: 1;
+        }
+
+        .star-product-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 3.2vw, 2.75rem);
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1.1;
+            margin-bottom: 0.5rem;
+        }
+
+        .star-price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-price-star {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .price-badge-extra {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            background: rgba(6, 23, 15, 0.85);
+            border: 1px solid rgba(216, 180, 106, 0.35);
+            padding: 0.25rem 0.65rem;
+            border-radius: 6px;
+            color: var(--cream);
+        }
+
+        .star-description {
+            font-size: 0.88rem;
+            color: rgba(244, 235, 213, 0.85);
+            line-height: 1.6;
+            margin-bottom: 1.4rem;
+        }
+
+        .star-recipe-list {
+            width: 100%;
+            padding-bottom: 1.25rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(216, 180, 106, 0.2);
+            font-size: 0.8rem;
+            color: rgba(244, 235, 213, 0.9);
+            line-height: 1.7;
+        }
+        .star-recipe-list strong {
+            display: block;
+            font-size: 0.72rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.35rem;
+        }
+
+        /* DÚO SECUNDARIO: POLLO & CERDO ($4.000) */
+        .duo-grid {
+            max-width: 1280px;
+            margin: 0 auto 5rem;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        @media (min-width: 768px) {
+            .duo-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .secondary-product-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(216, 180, 106, 0.25);
+            border-radius: 20px;
+            padding: 1.85rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+        .secondary-product-card:hover {
+            border-color: rgba(216, 180, 106, 0.55);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7);
+        }
+
+        .sec-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+
+        .sec-badge-text {
+            font-size: 0.68rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .sec-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-top: 0.15rem;
+        }
+
+        .sec-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .sec-render-wrap {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0.75rem 0;
+        }
+        .sec-render-wrap svg {
+            width: 85%;
+            filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.75));
+            transition: transform 0.4s ease;
+        }
+        .secondary-product-card:hover .sec-render-wrap svg { transform: scale(1.04); }
+
+        .sec-desc {
+            font-size: 0.82rem;
+            color: rgba(244, 235, 213, 0.8);
+            line-height: 1.55;
+            margin-bottom: 0.8rem;
+        }
+
+        .sec-ingredients-str {
+            font-size: 0.75rem;
+            color: var(--gold);
+            margin-bottom: 1.4rem;
+            font-weight: 500;
+        }
+
+        .btn-add-cart-outline {
+            width: 100%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.65rem;
+            padding: 0.75rem 1.25rem;
+            border-radius: 9999px;
+            border: 1px solid var(--gold);
+            background: transparent;
+            color: var(--cream);
+            font-size: 0.82rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+        .btn-add-cart-outline:hover {
+            background: var(--gold);
+            color: var(--bg-deep);
+            box-shadow: 0 0 20px rgba(216, 180, 106, 0.35);
+        }
+
+        /* BEBIDAS REFRESCOS ($1.500) */
+        .drinks-section-wrap {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(216, 180, 106, 0.2);
+        }
+
+        .drinks-header { text-align: center; margin-bottom: 2.8rem; }
+
+        .drinks-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        @media (min-width: 768px) {
+            .drinks-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .drink-item-card {
+            background: rgba(11, 33, 23, 0.75);
+            border: 1px solid rgba(216, 180, 106, 0.25);
+            border-radius: 20px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+        .drink-item-card:hover {
+            border-color: rgba(216, 180, 106, 0.55);
+            transform: translateY(-3px);
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.65);
+        }
+
+        .drink-cup-visual {
+            position: relative;
+            width: 110px;
+            height: 175px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .drink-frost-pill {
+            position: absolute;
+            bottom: -8px;
+            background: #06170F;
+            border: 1px solid rgba(216, 180, 106, 0.35);
+            font-size: 0.62rem;
+            font-weight: 700;
+            padding: 0.15rem 0.55rem;
+            border-radius: 999px;
+            color: var(--gold);
+            white-space: nowrap;
+        }
+
+        .drink-info-col {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            flex: 1;
+        }
+
+        .drink-sub-label {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .drink-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--white);
+            margin: 0.1rem 0;
+        }
+
+        .drink-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 0.3rem;
+        }
+
+        .drink-desc {
+            font-size: 0.74rem;
+            color: rgba(244, 235, 213, 0.75);
+            line-height: 1.4;
+            margin-bottom: 1rem;
+        }
+
+        /* ==========================================================================
+           7. SECCIÓN DE EVENTO (23 DE OCTUBRE)
+           ========================================================================== */
+        .event-section {
+            position: relative;
+            z-index: 20;
+            background: #081D14;
+            border-top: 1px solid rgba(216, 180, 106, 0.25);
+            padding: 4.5rem 1.5rem 5rem;
+            overflow: hidden;
+        }
+        @media (min-width: 1024px) {
+            .event-section { padding: 5rem 3.5rem; }
+        }
+
+        .event-banner-card {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: linear-gradient(145deg, #0E2E1F 0%, #06170F 100%);
+            border: 1px solid rgba(216, 180, 106, 0.45);
+            border-radius: 24px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75);
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            align-items: center;
+            position: relative;
+        }
+        @media (min-width: 860px) {
+            .event-banner-card {
+                grid-template-columns: 1.2fr 2fr;
+                padding: 3rem 3.5rem;
+            }
+        }
+
+        .event-date-hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border-bottom: 1px solid rgba(216, 180, 106, 0.25);
+            padding-bottom: 1.5rem;
+        }
+        @media (min-width: 860px) {
+            .event-date-hero {
+                border-bottom: none;
+                border-right: 1px solid rgba(216, 180, 106, 0.25);
+                padding-bottom: 0;
+                padding-right: 2.5rem;
+            }
+        }
+
+        .event-badge-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.25em;
+            color: var(--gold);
+            text-transform: uppercase;
+        }
+
+        .event-date-big {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.8rem, 5vw, 4.2rem);
+            font-weight: 800;
+            color: var(--white);
+            line-height: 1;
+            margin: 0.4rem 0;
+            text-shadow: 0 4px 15px rgba(216, 180, 106, 0.3);
+        }
+
+        .event-date-month {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .event-info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.2rem;
+        }
+        @media (min-width: 560px) {
+            .event-info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .event-info-item {
+            background: rgba(6, 23, 15, 0.6);
+            border: 1px solid rgba(216, 180, 106, 0.2);
+            border-radius: 14px;
+            padding: 1rem 1.2rem;
+        }
+
+        .event-info-label {
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: var(--gold);
+            margin-bottom: 0.25rem;
+        }
+
+        .event-info-val {
+            font-size: 0.95rem;
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        /* ==========================================================================
+           8. SECCIÓN DE EQUIPO ("El equipo detrás de Burrilocos")
+           ========================================================================== */
+        .team-section {
+            position: relative;
+            z-index: 20;
+            background: var(--bg-deep);
+            border-top: 1px solid rgba(216, 180, 106, 0.2);
+            padding: 5.5rem 1.5rem 6.5rem;
+            overflow: hidden;
+        }
+        @media (min-width: 1024px) {
+            .team-section { padding: 6.5rem 3.5rem; }
+        }
+
+        .team-header-wrap {
+            text-align: center;
+            max-width: 720px;
+            margin: 0 auto 3.8rem;
+        }
+
+        .team-grid-students {
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1.5rem;
+        }
+        @media (min-width: 640px) {
+            .team-grid-students { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 990px) {
+            .team-grid-students { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        .team-card {
+            background: #0B2117;
+            border: 1px solid rgba(216, 180, 106, 0.25);
+            border-radius: 18px;
+            padding: 1.8rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+        .team-card:hover {
+            border-color: rgba(216, 180, 106, 0.6);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7);
+        }
+
+        .team-avatar-ring {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+            background: #143A27;
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .team-member-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 0.25rem;
+        }
+
+        .team-member-role {
+            font-size: 0.74rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .teacher-spotlight-card {
+            max-width: 700px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #113825 0%, #0B2117 100%);
+            border: 1px solid var(--gold);
+            border-radius: 20px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+        }
+        @media (min-width: 640px) {
+            .teacher-spotlight-card {
+                flex-direction: row;
+                text-align: left;
+                gap: 2rem;
+            }
+        }
+
+        /* ==========================================================================
+           9. SECCIÓN INSTITUCIONAL (I.E. SAN MATEO)
+           ========================================================================== */
+        .institution-section {
+            position: relative;
+            z-index: 20;
+            background: #091F14;
+            border-top: 1px solid rgba(216, 180, 106, 0.25);
+            padding: 5rem 1.5rem 5.5rem;
+            overflow: hidden;
+        }
+        @media (min-width: 1024px) {
+            .institution-section { padding: 6rem 3.5rem; }
+        }
+
+        .institution-card-wrap {
+            max-width: 1080px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            align-items: center;
+        }
+        @media (min-width: 800px) {
+            .institution-card-wrap {
+                grid-template-columns: 1fr 2fr;
+            }
+        }
+
+        .inst-logo-frame {
+            background: rgba(6, 23, 15, 0.65);
+            border: 1px solid rgba(216, 180, 106, 0.35);
+            border-radius: 24px;
+            padding: 2.5rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+        }
+
+        .inst-official-logo {
+            width: 120px;
+            max-height: 120px;
+            object-fit: contain;
+            filter: drop-shadow(0 6px 15px rgba(0, 0, 0, 0.6));
+            margin-bottom: 1rem;
+        }
+
+        .inst-details-col {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .inst-story-p {
+            font-size: 0.95rem;
+            color: rgba(244, 235, 213, 0.88);
+            line-height: 1.7;
+            margin: 1.2rem 0 1.8rem;
+        }
+
+        .inst-meta-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .inst-meta-tag {
+            font-size: 0.74rem;
+            font-weight: 600;
+            background: #0E2E1F;
+            border: 1px solid rgba(216, 180, 106, 0.3);
+            padding: 0.35rem 0.9rem;
+            border-radius: 999px;
+            color: var(--cream);
+        }
+
+        /* ==========================================================================
+           10. CONTACTO & GRAN CTA FINAL
+           ========================================================================== */
+        .contact-cta-section {
+            position: relative;
+            z-index: 20;
+            background: linear-gradient(180deg, #06170F 0%, #030B07 100%);
+            border-top: 1px solid rgba(216, 180, 106, 0.25);
+            padding: 6rem 1.5rem 7rem;
+            overflow: hidden;
+            text-align: center;
+        }
+        @media (min-width: 1024px) {
+            .contact-cta-section { padding: 7rem 3.5rem 8rem; }
+        }
+
+        .cta-content-box {
+            max-width: 820px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        .cta-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .cta-p {
+            font-size: clamp(0.95rem, 1.4vw, 1.15rem);
+            color: rgba(244, 235, 213, 0.85);
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.6;
+        }
+
+        .cta-button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+        }
+        @media (min-width: 520px) {
+            .cta-button-group {
+                flex-direction: row;
+                gap: 1.5rem;
+            }
+        }
+
+        .btn-whatsapp-direct {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.85rem 2rem;
+            border-radius: 9999px;
+            background: var(--whatsapp-green);
+            color: #06170F;
+            font-size: 0.88rem;
+            font-weight: 800;
+            letter-spacing: 0.03em;
+            text-decoration: none;
+            box-shadow: 0 6px 22px rgba(37, 211, 102, 0.35);
+            transition: var(--transition-smooth);
+        }
+        .btn-whatsapp-direct:hover {
+            background: #20BA5A;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 26px rgba(37, 211, 102, 0.5);
+        }
+
+        .contact-info-strip {
+            max-width: 900px;
+            margin: 4rem auto 0;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(216, 180, 106, 0.2);
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        @media (min-width: 720px) {
+            .contact-info-strip {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .contact-strip-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .contact-strip-title {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.2rem;
+        }
+        .contact-strip-val {
+            font-size: 0.88rem;
+            color: var(--cream);
+        }
+
+        /* ==========================================================================
+           11. FOOTER PREMIUM EDITORIAL
+           ========================================================================== */
+        footer.master-footer {
+            position: relative;
+            z-index: 25;
+            background: #040F0A;
+            border-top: 1px solid rgba(216, 180, 106, 0.2);
+            padding: 3.5rem 1.5rem 2.5rem;
+            color: rgba(244, 235, 213, 0.7);
+        }
+        @media (min-width: 1024px) {
+            footer.master-footer { padding: 4rem 3.5rem 3rem; }
+        }
+
+        .footer-grid-top {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+        }
+        @media (min-width: 768px) {
+            .footer-grid-top {
+                grid-template-columns: 2fr 1fr 1fr;
+            }
+        }
+
+        .footer-brand-bio {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .footer-heading {
+            font-size: 0.74rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-names-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            font-size: 0.8rem;
+        }
+
+        .footer-bottom-bar {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(216, 180, 106, 0.15);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 0.75rem;
+            font-size: 0.75rem;
+        }
+        @media (min-width: 640px) {
+            .footer-bottom-bar {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: left;
+            }
+        }
+
+        /* ==========================================================================
+           12. STAGE 5 — CARRITO ELEVADO CON MINIATURAS VISUALES
+           ========================================================================== */
+        .cart-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.35s ease, visibility 0.35s ease;
+        }
+        .cart-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .cart-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            max-width: 520px;
+            background: #0B2117;
+            border-left: 1px solid rgba(216, 180, 106, 0.35);
+            box-shadow: -15px 0 50px rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .cart-drawer.active {
+            transform: translateX(0);
+        }
+
+        .cart-header {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid rgba(216, 180, 106, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #06170F;
+        }
+
+        .cart-header-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-close-cart {
+            background: none;
+            border: none;
+            color: rgba(244, 235, 213, 0.7);
+            font-size: 1.4rem;
+            cursor: pointer;
+            padding: 0.2rem 0.5rem;
+            transition: var(--transition-smooth);
+        }
+        .btn-close-cart:hover { color: var(--gold); }
+
+        .cart-body-scroll {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .cart-empty-view {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: 100%;
+            padding: 2.5rem 1.5rem;
+            color: rgba(244, 235, 213, 0.65);
+        }
+        .cart-empty-art {
+            width: 72px;
+            height: 72px;
+            margin-bottom: 1.2rem;
+            opacity: 0.8;
+            filter: drop-shadow(0 6px 14px rgba(0,0,0,0.6));
+        }
+
+        .cart-item-row {
+            background: rgba(6, 23, 15, 0.7);
+            border: 1px solid rgba(216, 180, 106, 0.22);
+            border-radius: 14px;
+            padding: 0.85rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            animation: toastSlide 0.25s ease;
+            transition: border-color 0.25s ease;
+        }
+        .cart-item-row:hover {
+            border-color: rgba(216, 180, 106, 0.45);
+        }
+
+        /* MINIATURAS VISUALES EN CARRITO */
+        .cart-thumb-wrap {
+            width: 52px;
+            height: 52px;
+            border-radius: 10px;
+            background: #113626;
+            border: 1px solid rgba(216, 180, 106, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        }
+        .cart-thumb-wrap svg {
+            width: 90%;
+            height: 90%;
+        }
+
+        .item-info {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-width: 0;
+        }
+        .item-name {
+            font-size: 0.86rem;
+            font-weight: 600;
+            color: var(--white);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .item-unit-price {
+            font-size: 0.74rem;
+            color: rgba(216, 180, 106, 0.9);
+        }
+        .item-row-subtotal {
+            font-size: 0.84rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-top: 0.15rem;
+        }
+
+        .qty-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            background: #0E291C;
+            border: 1px solid rgba(216, 180, 106, 0.3);
+            border-radius: 999px;
+            padding: 0.15rem 0.4rem;
+        }
+        .btn-qty {
+            background: none;
+            border: none;
+            color: var(--cream);
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            border-radius: 50%;
+        }
+        .btn-qty:hover {
+            background: var(--gold);
+            color: var(--bg-deep);
+        }
+        .qty-number {
+            font-size: 0.84rem;
+            font-weight: 700;
+            min-width: 18px;
+            text-align: center;
+        }
+
+        .btn-remove-item {
+            background: none;
+            border: none;
+            color: rgba(255, 110, 110, 0.75);
+            cursor: pointer;
+            padding: 0.3rem 0.4rem;
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: var(--transition-smooth);
+        }
+        .btn-remove-item:hover { color: #ff4d4d; }
+
+        /* Promociones Activas en Carrito */
+        .promotions-active-box {
+            background: rgba(14, 41, 28, 0.9);
+            border: 1px solid rgba(216, 180, 106, 0.35);
+            border-radius: 12px;
+            padding: 0.85rem 1rem;
+            margin-top: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+        }
+        .promo-active-title {
+            font-size: 0.68rem;
+            font-weight: 800;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.15rem;
+        }
+        .promo-active-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.78rem;
+            color: #5BE493;
+            font-weight: 600;
+        }
+
+        .cart-footer-summary {
+            padding: 1.25rem 1.5rem;
+            background: #06170F;
+            border-top: 1px solid rgba(216, 180, 106, 0.25);
+            display: flex;
+            flex-direction: column;
+            gap: 0.55rem;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.82rem;
+            color: rgba(244, 235, 213, 0.85);
+        }
+        .summary-row.discount-row { color: #5BE493; font-weight: 600; }
+        .summary-row.total-row {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--white);
+            border-top: 1px solid rgba(216, 180, 106, 0.2);
+            padding-top: 0.65rem;
+            margin-top: 0.2rem;
+        }
+        .summary-row.total-row .total-amount {
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.45rem;
+            transition: var(--transition-smooth);
+        }
+
+        .checkout-fields-card {
+            background: rgba(14, 41, 28, 0.65);
+            border: 1px solid rgba(216, 180, 106, 0.3);
+            border-radius: 14px;
+            padding: 1rem;
+            margin-top: 0.6rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .checkout-field-wrap label {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.3rem;
+        }
+
+        .checkout-input-text {
+            width: 100%;
+            background: #06170F;
+            border: 1px solid rgba(216, 180, 106, 0.35);
+            border-radius: 8px;
+            padding: 0.55rem 0.8rem;
+            color: var(--white);
+            font-family: inherit;
+            font-size: 0.85rem;
+            outline: none;
+            transition: var(--transition-smooth);
+        }
+        .checkout-input-text:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 10px rgba(216, 180, 106, 0.25);
+        }
+        .checkout-input-text.has-error {
+            border-color: #ff5e5e;
+            background: rgba(255, 94, 94, 0.05);
+        }
+
+        .inline-validation-msg {
+            color: #ff7070;
+            font-size: 0.72rem;
+            font-weight: 600;
+            margin-top: 0.25rem;
+            display: none;
+        }
+        .inline-validation-msg.visible { display: block; }
+
+        .payment-radio-group {
+            display: flex;
+            gap: 1.25rem;
+            margin-top: 0.2rem;
+        }
+
+        .payment-radio-option {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-size: 0.82rem;
+            color: var(--cream);
+            cursor: pointer;
+        }
+        .payment-radio-option input[type="radio"] {
+            accent-color: var(--gold);
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+        }
+
+        .pickup-badge-info {
+            background: rgba(6, 23, 15, 0.8);
+            border-left: 2px solid var(--gold);
+            padding: 0.5rem 0.7rem;
+            font-size: 0.7rem;
+            color: rgba(244, 235, 213, 0.8);
+            line-height: 1.35;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .btn-whatsapp-confirm {
+            width: 100%;
+            background: var(--whatsapp-green);
+            color: #06170F;
+            border: none;
+            border-radius: 999px;
+            padding: 0.9rem 1.5rem;
+            font-size: 0.9rem;
+            font-weight: 800;
+            letter-spacing: 0.03em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.55rem;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.35);
+            transition: var(--transition-smooth);
+            margin-top: 0.2rem;
+        }
+        .btn-whatsapp-confirm:hover {
+            background: #20BA5A;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+        }
+
+        .whatsapp-preparing-feedback {
+            background: rgba(37, 211, 102, 0.15);
+            border: 1px solid var(--whatsapp-green);
+            border-radius: 10px;
+            padding: 0.65rem 0.85rem;
+            font-size: 0.75rem;
+            color: #5BE493;
+            text-align: center;
+            display: none;
+            margin-top: 0.3rem;
+            animation: toastSlide 0.25s ease;
+        }
+        .whatsapp-preparing-feedback.visible { display: block; }
+
+        .btn-empty-cart {
+            background: none;
+            border: none;
+            color: rgba(244, 235, 213, 0.5);
+            font-size: 0.72rem;
+            cursor: pointer;
+            text-align: center;
+            padding: 0.25rem;
+            text-decoration: underline;
+            transition: color 0.2s;
+            margin-top: 0.2rem;
+        }
+        .btn-empty-cart:hover { color: #ff7777; }
+
+        /* Toast Feedback */
+        .toast-notification {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 1100;
+            background: #0B2117;
+            border: 1px solid var(--gold);
+            padding: 0.85rem 1.25rem;
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transform: translateY(100px);
+            opacity: 0;
+            visibility: hidden;
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+        }
+        .toast-notification.active {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ==========================================================================
+           13. STAGE 6 — REDISEÑO PREMIUM: HERO, FLECHA, MENÚ CON FOTOS, CARRITO COMPACTO,
+               MÓVIL REAL Y ANIMACIONES DE ENTRADA
+           ========================================================================== */
+        html { scroll-padding-top: 64px; overflow-x: clip; }
+        body { overflow-x: hidden; overflow-x: clip; }
+        img { max-width: 100%; }
+
+
+        /* Correcciones de capas y visibilidad */
+        @media (min-width: 890px) { .hamburger-btn { display: none; } }
+        .hero-viewport { z-index: 22; }
+        .cart-drawer { visibility: hidden; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear 0.4s; }
+        .cart-drawer.active { visibility: visible; transition-delay: 0s; }
+
+        /* ---------- Header ---------- */
+        .hamburger-btn {
+            width: 44px; height: 44px;
+            align-items: center; justify-content: center;
+            border-radius: 12px;
+            transition: var(--transition-smooth);
+        }
+        @media (max-width: 889px) { .hamburger-btn { display: inline-flex; } }
+        .hamburger-btn:hover { background: rgba(216, 180, 106, 0.1); }
+        .hamburger-btn .ham-x { display: none; }
+        .hamburger-btn.is-open .ham-x { display: block; }
+        .hamburger-btn.is-open .ham-lines { display: none; }
+
+        .mobile-menu {
+            display: flex;
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(-8px);
+            pointer-events: none;
+            padding: 0.5rem 1.25rem 1.25rem;
+            gap: 0;
+            transition: opacity 0.28s ease, transform 0.28s ease, visibility 0.28s;
+            box-shadow: 0 24px 40px rgba(0, 0, 0, 0.6);
+        }
+        .mobile-menu.open {
+            visibility: visible;
+            opacity: 1;
+            transform: none;
+            pointer-events: auto;
+        }
+        .mobile-menu a {
+            padding: 0.95rem 0.25rem;
+            border-bottom: 1px solid rgba(216, 180, 106, 0.14);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+        }
+        .mobile-menu-cta {
+            margin-top: 1rem;
+            padding: 0.85rem 1rem;
+            border-radius: 999px;
+            border: none;
+            background: var(--gold);
+            color: var(--bg-deep);
+            font: 700 0.9rem 'Montserrat', sans-serif;
+            cursor: pointer;
+        }
+        @media (min-width: 890px) { .mobile-menu { display: none !important; } }
+
+        @media (max-width: 889px) {
+            header { padding: 0 0.75rem 0 1rem; }
+            .header-actions { gap: 0.35rem; }
+        }
+        @media (max-width: 520px) {
+            .brand-container { gap: 0.45rem; min-width: 0; }
+            .brand-flame { width: 20px; height: 20px; }
+            .brand-name { font-size: 0.92rem; letter-spacing: 0.13em; }
+            .btn-cart-toggle { padding: 0.5rem 0.75rem; gap: 0.4rem; min-height: 40px; }
+            .btn-cart-toggle > span:nth-child(2) { display: none; }
+        }
+
+        /* ---------- Hero: logo en la esquina superior izquierda ---------- */
+        .hero-viewport { min-height: calc(100vh - 60px); min-height: calc(100svh - 60px); }
+
+        .hero-logo-corner {
+            position: absolute;
+            top: 1rem;
+            left: 1.25rem;
+            z-index: 30;
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+            line-height: 0;
+            text-decoration: none;
+        }
+        .hero-logo-corner::before {
+            content: '';
+            position: absolute;
+            left: -14px; top: 50%;
+            width: 120px; height: 120px;
+            transform: translateY(-50%);
+            background: radial-gradient(closest-side, rgba(216, 180, 106, 0.2), transparent 75%);
+            z-index: -1;
+            pointer-events: none;
+        }
+        .hero-logo-corner::after {
+            content: '';
+            display: block;
+            width: clamp(36px, 9vw, 110px);
+            height: 1px;
+            background: linear-gradient(90deg, rgba(216, 180, 106, 0.7), transparent);
+        }
+        .hero-logo-corner .official-logo-badge {
+            width: auto;
+            height: 76px;
+            max-width: 190px;
+            margin: 0;
+            display: block;
+            object-fit: contain;
+        }
+
+        .hero-main {
+            padding: 6.1rem 1.25rem 2rem;
+            gap: 1.75rem;
+            align-items: start;
+        }
+        .hero-left-stack {
+            align-items: flex-start;
+            text-align: left;
+        }
+        .hero-title { font-size: clamp(2.6rem, 11.5vw, 3.4rem); }
+        .hero-slogan-cursive { font-size: clamp(2.2rem, 9.5vw, 3rem); }
+        .hero-description { font-size: 0.95rem; max-width: 420px; margin-bottom: 1.35rem; }
+        .btn-gold-pill { padding: 0.8rem 1.8rem; min-height: 46px; }
+
+        @media (min-width: 768px) {
+            .hero-logo-corner { top: 1.25rem; left: 2.5rem; }
+            .hero-logo-corner .official-logo-badge { height: 92px; }
+            .hero-main { padding: 7.4rem 2.5rem 2.5rem; }
+        }
+        @media (min-width: 1024px) {
+            .hero-logo-corner { top: 1.4rem; left: 3.5rem; }
+            .hero-logo-corner .official-logo-badge { height: 104px; }
+            .hero-main {
+                padding: 1rem 3.5rem;
+                align-items: center;
+            }
+            .hero-left-stack { padding-top: 4.5rem; }
+            .hero-title { font-size: clamp(2.8rem, 4.4vw, 3.8rem); }
+            .hero-slogan-cursive { font-size: clamp(2.6rem, 4.2vw, 3.6rem); }
+            .hero-description { font-size: 0.92rem; }
+        }
+        @media (max-height: 760px) and (min-width: 1024px) {
+            .hero-left-stack { padding-top: 3.2rem; }
+            .hero-logo-corner .official-logo-badge { height: 88px; }
+        }
+
+        /* ---------- Hero: texto de experiencia + flecha hacia el video ---------- */
+        .hero-right-stage {
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.15rem;
+        }
+        .callout-experience {
+            position: relative;
+            top: auto; right: auto;
+            width: 100%;
+            max-width: 610px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 0;
+        }
+        .callout-text {
+            font-size: clamp(1.35rem, 5.6vw, 1.7rem);
+            align-items: center;
+            line-height: 1.12;
+        }
+        .callout-arrow-svg { margin: 0.1rem 0 0; line-height: 0; }
+        .callout-arrow-svg svg { display: block; overflow: visible; }
+        .arrow-desktop { display: none !important; }
+        .arrow-mobile { display: block; }
+
+        @media (min-width: 1024px) {
+            .callout-experience {
+                align-items: flex-end;
+                text-align: right;
+                padding-right: 3.2rem;
+            }
+            .callout-text { align-items: flex-end; font-size: clamp(1.4rem, 1.9vw, 1.7rem); }
+            .callout-arrow-svg { margin-right: 0.4rem; }
+            .arrow-desktop { display: block !important; }
+            .arrow-mobile { display: none !important; }
+        }
+        .video-food-frame { aspect-ratio: 16 / 10; border-radius: 14px; }
+        @media (min-width: 1024px) {
+            .video-food-frame { aspect-ratio: 16 / 9.8; border-radius: 16px; }
+        }
+
+        /* Valores: cuadrícula 2×2 compacta en móvil */
+        @media (max-width: 639px) {
+            .values-strip { padding: 1.1rem 0.75rem; }
+            .values-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem 0.4rem; }
+            .values-col { padding: 0 0.25rem; }
+            .values-icon-bubble { width: 36px; height: 36px; margin-bottom: 0.35rem; }
+            .values-title { font-size: 0.66rem; letter-spacing: 0.08em; }
+            .values-desc { font-size: 0.7rem; }
+        }
+
+        /* Hojas decorativas más discretas en pantallas pequeñas */
+        @media (max-width: 639px) {
+            .leaf-tl { width: 92px !important; }
+            .leaf-tr { width: 80px !important; }
+        }
+        .botanical-leaf > svg { translate: 0 calc(var(--p, 0) * 1px); }
+
+        /* ---------- Menú: burritos con fotos integradas ---------- */
+        .burrito-stage {
+            --burrito-scale: 1;
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            display: grid;
+            place-items: center;
+            isolation: isolate;
+        }
+        .burrito-stage--star { max-width: 540px; aspect-ratio: 5 / 4; }
+        .burrito-stage::before {
+            content: '';
+            position: absolute;
+            inset: 8% 12% 12%;
+            border: 1px solid rgba(216, 180, 106, 0.2);
+            border-radius: 50%;
+            z-index: -1;
+        }
+        .burrito-glow {
+            position: absolute;
+            inset: 4% 6%;
+            border-radius: 50%;
+            background: radial-gradient(closest-side, rgba(216, 180, 106, 0.2), rgba(45, 224, 128, 0.05) 60%, transparent 78%);
+            z-index: -2;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .burrito-shadow {
+            position: absolute;
+            left: 50%;
+            bottom: 8%;
+            width: 60%;
+            height: 9%;
+            transform: translateX(-50%);
+            background: radial-gradient(closest-side, rgba(0, 0, 0, 0.75), transparent);
+            filter: blur(4px);
+            z-index: -1;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .burrito-float {
+            width: 86%;
+            height: 84%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: burritoFloat 6.5s ease-in-out infinite;
+        }
+        .burrito-img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transform: scale(var(--burrito-scale));
+            filter: drop-shadow(0 16px 18px rgba(0, 0, 0, 0.55));
+            transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s ease;
+        }
+        #card-chicken .burrito-float { animation-delay: -2.2s; }
+        #card-pork .burrito-float { animation-delay: -4.1s; }
+        @keyframes burritoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-7px); }
+        }
+
+        .star-product-card:hover .burrito-img,
+        .secondary-product-card:hover .burrito-img {
+            transform: translateY(-8px) scale(calc(var(--burrito-scale) * 1.025));
+            filter: drop-shadow(0 24px 24px rgba(0, 0, 0, 0.62));
+        }
+        .star-product-card:hover .burrito-shadow,
+        .secondary-product-card:hover .burrito-shadow { transform: translateX(-50%) scale(0.92); opacity: 0.8; }
+        .star-product-card:hover .burrito-glow,
+        .secondary-product-card:hover .burrito-glow { transform: scale(1.04); }
+
+        /* Hover sutil: la tarjeta no salta */
+        .secondary-product-card:hover,
+        .drink-item-card:hover { transform: none; }
+        .sec-title, .star-product-title { transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1); }
+        .secondary-product-card:hover .sec-title,
+        .star-product-card:hover .star-product-title { transform: translateX(4px); }
+        .secondary-product-card:hover .btn-add-cart-outline {
+            border-color: var(--gold-light);
+            background: rgba(216, 180, 106, 0.12);
+            box-shadow: 0 0 0 3px rgba(216, 180, 106, 0.1);
+        }
+        .star-product-card:hover .btn-gold-pill { box-shadow: 0 8px 26px rgba(216, 180, 106, 0.5); }
+
+        .star-visual-stage { align-items: center; }
+        .star-callout { white-space: nowrap; }
+
+        @media (max-width: 767px) {
+            .menu-section { padding: 3.25rem 1rem 3.5rem; }
+            .menu-header-wrap { margin-bottom: 2.25rem; }
+            .menu-eyebrow-text { font-size: 0.68rem; letter-spacing: 0.14em; }
+            .star-product-card { padding: 1.5rem 1.1rem 1.4rem; margin-bottom: 1.75rem; border-radius: 20px; }
+            .star-badge-ribbon { right: 1rem; font-size: 0.6rem; padding: 0.3rem 0.85rem; }
+            .star-visual-stage { margin-top: 1.4rem; margin-bottom: 1.25rem; }
+            .star-callout {
+                position: relative; top: auto; left: auto;
+                font-size: 1.45rem; margin-bottom: 0.1rem; text-align: center;
+            }
+            .burrito-stage--star { aspect-ratio: 4 / 3; }
+            .star-product-title { font-size: 2rem; }
+            .star-price-row { flex-wrap: wrap; gap: 0.4rem 0.75rem; }
+            .product-price-star { font-size: 2rem; }
+            .secondary-product-card { padding: 1.25rem 1.1rem 1.35rem; border-radius: 18px; }
+            .sec-title { font-size: 1.45rem; }
+            .sec-price { font-size: 1.45rem; }
+            .duo-grid { gap: 1.25rem; margin-bottom: 3rem; }
+            .drinks-grid { gap: 1rem; }
+            .drink-item-card { padding: 1.1rem; gap: 1rem; }
+        }
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .menu-section { padding: 4.5rem 2rem 5rem; }
+            .star-product-card { padding: 2.25rem 2rem; }
+            .secondary-product-card { padding: 1.5rem; }
+            .sec-title, .sec-price { font-size: 1.5rem; }
+        }
+
+        /* ---------- Carrito: cajón compacto ---------- */
+        .cart-drawer { max-width: 440px; }
+        .cart-sheet-handle { display: none; }
+        .cart-header { padding: 0.95rem 1.1rem; gap: 0.75rem; }
+        .cart-header-title { font-size: 1.2rem; flex-wrap: wrap; gap: 0.1rem 0.5rem; }
+        .cart-count-title { font-size: 0.8rem; color: var(--gold); font-weight: 400; font-family: 'Montserrat', sans-serif; }
+        .cart-header-actions { display: flex; align-items: center; gap: 0.35rem; flex-shrink: 0; }
+        .cart-header-actions .btn-empty-cart { margin: 0; padding: 0.4rem 0.5rem; font-size: 0.72rem; }
+        .btn-close-cart { width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; padding: 0; border-radius: 50%; }
+
+        .cart-scroll {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            -webkit-overflow-scrolling: touch;
+            display: flex;
+            flex-direction: column;
+        }
+        .cart-body-scroll {
+            flex: 0 0 auto;
+            overflow: visible;
+            padding: 0.9rem 1.1rem 0.3rem;
+            gap: 0.5rem;
+        }
+        .cart-empty-view { height: auto; min-height: 340px; }
+
+        .cart-item-row {
+            display: grid;
+            grid-template-columns: 48px minmax(0, 1fr) auto;
+            grid-template-areas:
+                "thumb name remove"
+                "thumb qty  total";
+            column-gap: 0.7rem;
+            row-gap: 0.3rem;
+            align-items: center;
+            padding: 0.55rem 0.65rem;
+            border-radius: 12px;
+        }
+        .cart-thumb-wrap {
+            grid-area: thumb;
+            width: 48px; height: 48px;
+            border-radius: 12px;
+            background: radial-gradient(circle at 50% 38%, #1d4d36, #0d281c);
+        }
+        .cart-thumb-wrap img {
+            width: 90%; height: 90%;
+            object-fit: contain;
+            filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.55));
+        }
+        .item-name { grid-area: name; font-size: 0.86rem; line-height: 1.2; }
+        .btn-remove-item {
+            grid-area: remove;
+            width: 30px; height: 30px;
+            margin: -6px -4px -6px 0;
+            padding: 0;
+            display: inline-flex; align-items: center; justify-content: center;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            letter-spacing: 0;
+        }
+        .btn-remove-item:hover { background: rgba(255, 77, 77, 0.12); }
+        .item-qty-line { grid-area: qty; display: flex; align-items: center; gap: 0.55rem; min-width: 0; }
+        .item-unit-price { font-size: 0.72rem; color: rgba(216, 180, 106, 0.85); white-space: nowrap; }
+        .item-row-subtotal { grid-area: total; justify-self: end; margin: 0; font-size: 0.92rem; white-space: nowrap; }
+        .qty-controls { padding: 0 0.1rem; gap: 0.05rem; flex-shrink: 0; }
+        .btn-qty { width: 30px; height: 30px; font-size: 1.05rem; }
+        .qty-number { min-width: 22px; }
+        @media (pointer: coarse) {
+            .btn-qty { width: 34px; height: 34px; }
+            .btn-remove-item { width: 34px; height: 34px; margin: -8px -6px -8px 0; }
+        }
+
+        .cart-extra {
+            flex: 0 0 auto;
+            padding: 0.5rem 1.1rem 1.1rem;
+            gap: 0.7rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .subtotal-row { font-size: 0.8rem; padding: 0 0.2rem; }
+        .promotions-active-box {
+            margin-top: 0;
+            padding: 0.5rem 0.75rem;
+            gap: 0.22rem;
+            border-radius: 10px;
+            background: rgba(45, 224, 128, 0.06);
+            border: 1px solid rgba(91, 228, 147, 0.3);
+        }
+        .promo-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.78rem;
+            font-weight: 800;
+            color: #5BE493;
+            padding-bottom: 0.25rem;
+            margin-bottom: 0.1rem;
+            border-bottom: 1px dashed rgba(91, 228, 147, 0.25);
+        }
+        .promo-active-title { font-size: 0.62rem; letter-spacing: 0.14em; margin: 0; }
+        .promo-active-item { font-size: 0.74rem; line-height: 1.3; gap: 0.5rem; }
+        .promo-active-item span:last-child { white-space: nowrap; }
+
+        .checkout-fields-card { margin-top: 0; padding: 0.85rem; gap: 0.7rem; border-radius: 12px; }
+        .checkout-field-wrap label { margin-bottom: 0.25rem; }
+        .payment-radio-group { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.1rem; }
+        .payment-radio-option {
+            justify-content: center;
+            min-height: 40px;
+            padding: 0.4rem 0.6rem;
+            border: 1px solid rgba(216, 180, 106, 0.3);
+            border-radius: 999px;
+            background: #06170F;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+        }
+        .payment-radio-option:has(input:checked) {
+            border-color: var(--gold);
+            background: rgba(216, 180, 106, 0.14);
+            color: var(--gold-light);
+        }
+        .checkout-field-wrap label.payment-radio-option {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            margin: 0;
+            font-size: 0.82rem;
+            letter-spacing: 0;
+            text-transform: none;
+            color: var(--cream);
+        }
+        .checkout-field-wrap label.payment-radio-option:has(input:checked) { color: var(--gold-light); }
+        .pickup-badge-info { font-size: 0.7rem; }
+
+        .cart-sticky-footer {
+            flex: 0 0 auto;
+            padding: 0.8rem 1.1rem calc(0.85rem + env(safe-area-inset-bottom, 0px));
+            background: #06170F;
+            border-top: 1px solid rgba(216, 180, 106, 0.3);
+            box-shadow: 0 -14px 26px rgba(0, 0, 0, 0.45);
+            display: flex;
+            flex-direction: column;
+            gap: 0.55rem;
+        }
+        .cart-sticky-footer .summary-row.total-row {
+            margin: 0; padding: 0; border-top: 0;
+            font-size: 0.85rem; letter-spacing: 0.08em;
+        }
+        .cart-sticky-footer .btn-whatsapp-confirm { margin: 0; min-height: 50px; }
+        .cart-sticky-footer .whatsapp-preparing-feedback { margin: 0; padding: 0.5rem 0.7rem; }
+
+        .toast-notification { max-width: calc(100vw - 2rem); }
+        .cart-drawer.active ~ .toast-notification { display: none; }
+
+        @media (max-width: 639px) {
+            .cart-drawer {
+                top: auto; left: 0; right: 0; bottom: 0;
+                width: 100%; max-width: none;
+                height: 92vh; height: 92dvh;
+                border-left: 0;
+                border-top: 1px solid rgba(216, 180, 106, 0.4);
+                border-radius: 22px 22px 0 0;
+                box-shadow: 0 -18px 50px rgba(0, 0, 0, 0.9);
+                transform: translateY(105%);
+            }
+            .cart-drawer.active { transform: translateY(0); }
+            .cart-sheet-handle {
+                display: block;
+                width: 44px; height: 4px;
+                border-radius: 4px;
+                background: rgba(244, 235, 213, 0.25);
+                margin: 0.55rem auto 0;
+                flex-shrink: 0;
+            }
+            .cart-header { background: transparent; padding-top: 0.6rem; }
+            .checkout-input-text { font-size: 16px; }
+            .toast-notification { left: 1rem; right: 1rem; bottom: 1rem; }
+        }
+
+        /* ---------- Otras secciones en pantallas estrechas ---------- */
+        @media (max-width: 639px) {
+            .event-section, .team-section, .institution-section, .contact-cta-section { overflow-x: clip; }
+        }
+
+        /* ==========================================================================
+           14. ANIMACIONES DE ENTRADA (solo si el usuario no pidió reducir movimiento)
+           ========================================================================== */
+        @keyframes heroIn {
+            from { opacity: 0; transform: translate3d(0, 22px, 0); }
+            to   { opacity: 1; transform: none; }
+        }
+        @keyframes heroLogoIn {
+            from { opacity: 0; transform: scale(0.9) translate3d(-8px, 0, 0); }
+            to   { opacity: 1; transform: none; }
+        }
+        @keyframes heroVideoIn {
+            from { opacity: 0; transform: scale(0.965) translate3d(0, 18px, 0); }
+            to   { opacity: 1; transform: none; }
+        }
+        @keyframes heroBgIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes leafSettle {
+            from { opacity: 0; transform: translate3d(-18px, -22px, 0) rotate(-2deg); }
+            to   { opacity: 1; transform: none; }
+        }
+        @keyframes arrowNudge {
+            0%, 100% { transform: translateY(0); opacity: 0.7; }
+            50% { transform: translateY(6px); opacity: 1; }
+        }
+
+        @media (prefers-reduced-motion: no-preference) {
+            .hero-viewport { animation: heroBgIn 0.9s ease both; }
+            .hero-logo-corner { animation: heroLogoIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s backwards; }
+            .hero-subtitle-tag { animation: heroIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.35s backwards; }
+            .hero-title { animation: heroIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s backwards; }
+            .hero-slogan-cursive { animation: heroIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.65s backwards; }
+            .hero-description { animation: heroIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s backwards; }
+            .hero-left-stack .btn-gold-pill { animation: heroIn 1s cubic-bezier(0.16, 1, 0.3, 1) 0.95s backwards; }
+            .hero-right-stage .video-food-frame { animation: heroVideoIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.8s backwards; }
+            .callout-experience { animation: heroIn 1s cubic-bezier(0.16, 1, 0.3, 1) 1.15s backwards; }
+            .values-strip { animation: heroIn 1s cubic-bezier(0.16, 1, 0.3, 1) 1.2s backwards; }
+            .botanical-leaf > svg { animation: leafSettle 1.6s cubic-bezier(0.16, 1, 0.3, 1) 1s backwards; }
+            .callout-arrow-svg svg { animation: arrowNudge 2.6s ease-in-out 2s infinite; }
+
+            html.js [data-reveal] {
+                opacity: 0;
+                transform: translate3d(0, 28px, 0);
+                transition: opacity 0.95s cubic-bezier(0.16, 1, 0.3, 1), transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+                transition-delay: var(--d, 0ms);
+                will-change: opacity, transform;
+            }
+            html.js [data-reveal="scale"] { transform: translate3d(0, 22px, 0) scale(0.97); }
+            html.js [data-reveal].is-visible { opacity: 1; transform: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==========================================================================
+         BOTÁNICA ENMARCADA (SUPERIOR & LATERALES)
+         ========================================================================== -->
+    <div class="botanical-leaf leaf-tl animate-sway" style="top: 0; left: 0; width: clamp(140px, 22vw, 320px);">
+        <svg viewBox="0 0 360 320" fill="none" style="width: 100%; filter: drop-shadow(0 15px 25px rgba(0,0,0,0.8));">
+            <path d="M-30 -30 C 50 40, 160 30, 240 140 C 150 170, 60 120, -30 -30 Z" fill="#0A2016" />
+            <path d="M-40 -10 C 60 70, 180 80, 220 200 C 130 200, 40 140, -40 -10 Z" fill="#113626" />
+            <path d="M-20 -20 C 30 90, 90 200, 160 280 C 100 250, 20 180, -20 -20 Z" fill="#184833" />
+            <path d="M-20 40 C 20 110, 70 190, 120 250 C 70 230, 0 170, -20 40 Z" fill="#205E42" opacity="0.9" />
+            <path d="M-20 -20 Q 90 120 155 275" stroke="#3D8B64" stroke-width="2" stroke-linecap="round" opacity="0.4" />
+        </svg>
+    </div>
+
+    <div class="botanical-leaf leaf-tr animate-sway-rev" style="top: 0; right: 0; width: clamp(130px, 18vw, 260px); opacity: 0.65;">
+        <svg viewBox="0 0 260 220" fill="none" style="width: 100%;">
+            <path d="M280 -20 C 190 40, 110 60, 50 140 C 120 140, 200 100, 280 -20 Z" fill="#0C2419" />
+            <path d="M280 -10 C 210 70, 150 150, 100 210 C 150 190, 220 140, 280 -10 Z" fill="#143D2A" />
+        </svg>
+    </div>
+
+    <!-- ==========================================================================
+         1. COMPACT HEADER (~60px)
+         ========================================================================== -->
+    <header>
+        <a href="#inicio" class="brand-container">
+            <svg class="brand-flame" viewBox="0 0 24 24">
+                <path d="M12 23c-4.418 0-8-3.582-8-8 0-3.58 2.37-6.62 5.67-7.65.34-.11.66.19.59.54-.34 1.7.35 3.39 1.74 4.2 1.63.95 2.12 3.03 1.09 4.63-.16.25.04.58.34.54 2.22-.32 4.07-1.84 4.74-3.95.12-.37.62-.43.82-.09C19.34 15.65 16.03 23 12 23z" />
+            </svg>
+            <span class="brand-name">BURRILOCOS</span>
+        </a>
+
+        <nav class="nav-links" id="desktopNav">
+            <a href="#inicio" class="active">Inicio</a>
+            <a href="#menu">Menú</a>
+            <a href="#evento">Evento</a>
+            <a href="#equipo">Equipo</a>
+            <a href="#institucion">Institución</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
+
+        <div class="header-actions">
+            <button class="btn-cart-toggle" onclick="toggleCartDrawer(true)" aria-label="Abrir Carrito">
+                <span>🛒</span>
+                <span>Haz tu pedido</span>
+                <span class="cart-badge" id="headerCartBadge">0</span>
+            </button>
+
+            <button class="hamburger-btn" onclick="toggleMobileMenu()" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileMenu">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                    <path class="ham-lines" stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M4 12h16M4 17h16" />
+                    <path class="ham-x" stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M18 6L6 18" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Menú Desplegable Móvil -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#inicio" onclick="toggleMobileMenu()">Inicio</a>
+        <a href="#menu" onclick="toggleMobileMenu()">Menú</a>
+        <a href="#evento" onclick="toggleMobileMenu()">Evento</a>
+        <a href="#equipo" onclick="toggleMobileMenu()">Equipo</a>
+        <a href="#institucion" onclick="toggleMobileMenu()">Institución</a>
+        <a href="#contacto" onclick="toggleMobileMenu()">Contacto</a>
+        <button type="button" class="mobile-menu-cta" onclick="toggleMobileMenu(); toggleCartDrawer(true)">🛒 Haz tu pedido</button>
+    </div>
+
+    <!-- ==========================================================================
+         2. HOMEPAGE / FIRST VIEWPORT (1440 x 900)
+         ========================================================================== -->
+    <div class="hero-viewport" id="inicio">
+        
+        <a href="#inicio" class="hero-logo-corner" aria-label="BURRILOCOS — inicio">
+            <img src="https://i.postimg.cc/2yck2tNq/Burrilocos-logo.png" alt="Logo oficial de Burrilocos" class="official-logo-badge" decoding="async" />
+        </a>
+
+        <main class="hero-main">
+            <!-- COLUMNA IZQUIERDA: TEXTO DEL HERO -->
+            <div class="hero-left-stack">
+
+                <span class="hero-subtitle-tag">BURRITOS ARTESANALES</span>
+                <h1 class="hero-title">Burrilocos</h1>
+                <p class="hero-slogan-cursive">Un mundo de sabor, enrollado</p>
+                
+                <p class="hero-description">
+                    Burritos frescos, ingredientes de calidad y el mejor sabor, ahora en tu colegio.
+                </p>
+
+                <a href="#menu" class="btn-gold-pill">
+                    <span>Ver nuestro menú</span>
+                    <span>→</span>
+                </a>
+            </div>
+
+            <!-- COLUMNA DERECHA: VIDEO CINEMÁTICO + CALLOUT DE EXPERIENCIA -->
+            <div class="hero-right-stage">
+                
+                <div class="callout-experience">
+                    <div class="callout-text">
+                        <span>Más que un burrito,</span>
+                        <span>es una experiencia <span class="callout-heart">♡</span></span>
+                    </div>
+
+                    <div class="callout-arrow-svg" aria-hidden="true">
+                        <!-- Escritorio: flecha curva que baja hacia el video -->
+                        <svg class="arrow-desktop" width="70" height="58" viewBox="0 0 80 66" fill="none" stroke="#D8B46A">
+                            <path d="M58 4 C 76 20, 50 32, 40 56" stroke-width="1.8" stroke-linecap="round"/>
+                            <path d="M49 49 L40 58 L39 45" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <!-- Móvil: flecha corta y vertical -->
+                        <svg class="arrow-mobile" width="30" height="40" viewBox="0 0 40 52" fill="none" stroke="#D8B46A">
+                            <path d="M20 3 C 15 15, 25 26, 20 44" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M12 36 L20 46 L28 36" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="video-food-frame">
+                    <iframe 
+                        src="https://player.vimeo.com/video/1232834882?autoplay=1&muted=1&loop=1&background=1&autopause=0&controls=0"
+                        title="Burrilocos Food Showcase"
+                        allow="autoplay; fullscreen; picture-in-picture"
+                    ></iframe>
+                    <div class="video-fallback-bg"></div>
+                    <div class="video-vignette"></div>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- Indicador Mouse en el Borde Inferior -->
+        <div class="mouse-scroll-indicator">
+            <div class="mouse-pill">
+                <div class="mouse-inner-dot mouse-dot"></div>
+            </div>
+        </div>
+
+        <!-- FRANJA DE VALORES EN CREMA (#EFE7D2) -->
+        <section class="values-strip" id="valores">
+            <div class="values-grid">
+                
+                <div class="values-col">
+                    <div class="values-icon-bubble">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+                            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+                        </svg>
+                    </div>
+                    <h3 class="values-title">INGREDIENTES FRESCOS</h3>
+                    <p class="values-desc">Seleccionamos lo mejor del día.</p>
+                </div>
+
+                <div class="values-col">
+                    <div class="values-icon-bubble">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z"/>
+                            <line x1="6" y1="17" x2="18" y2="17"/>
+                        </svg>
+                    </div>
+                    <h3 class="values-title">RECETAS ÚNICAS</h3>
+                    <p class="values-desc">El sabor que nos hace diferentes.</p>
+                </div>
+
+                <div class="values-col">
+                    <div class="values-icon-bubble">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                        </svg>
+                    </div>
+                    <h3 class="values-title">CALIDAD PREMIUM</h3>
+                    <p class="values-desc">Porque mereces lo mejor.</p>
+                </div>
+
+                <div class="values-col">
+                    <div class="values-icon-bubble">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+                        </svg>
+                    </div>
+                    <h3 class="values-title">HECHO CON PASIÓN</h3>
+                    <p class="values-desc">Cada burrito cuenta una historia.</p>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+    <!-- ==========================================================================
+         3. CARTA GASTRONÓMICA EDITORIAL (STAGE 2 PRESERVADO & PULIDO)
+         ========================================================================== -->
+    <section class="menu-section" id="menu">
+        
+        <div class="botanical-leaf animate-sway" style="top: 15%; left: -25px; width: clamp(120px, 18vw, 240px);">
+            <svg viewBox="0 0 260 300" fill="none" style="width: 100%;">
+                <path d="M-20 180 C 50 80, 140 70, 220 120 C 150 170, 70 210, -20 180 Z" fill="#0C2519"/>
+                <path d="M-20 180 C 40 130, 120 160, 180 240 C 110 250, 40 220, -20 180 Z" fill="#133C29"/>
+            </svg>
+        </div>
+
+        <div class="botanical-leaf animate-sway-rev" style="top: 38%; right: -25px; width: clamp(120px, 18vw, 250px);">
+            <svg viewBox="0 0 260 300" fill="none" style="width: 100%;">
+                <path d="M280 150 C 200 60, 110 60, 30 120 C 110 160, 190 190, 280 150 Z" fill="#0C2519"/>
+                <path d="M280 150 C 200 110, 120 150, 70 240 C 150 240, 230 200, 280 150 Z" fill="#133C29"/>
+            </svg>
+        </div>
+
+        <div class="menu-header-wrap">
+            <div class="menu-eyebrow">
+                <span class="menu-eyebrow-line"></span>
+                <span class="menu-eyebrow-text">Nuestra Selección Artesanal</span>
+                <span class="menu-eyebrow-line"></span>
+            </div>
+            <h2 class="menu-main-title">El Menú Burrilocos</h2>
+            <p class="menu-intro-p">
+                Recetas exclusivas preparadas al instante con carne seleccionada, queso derretido, vegetales crujientes y la auténtica salsa de la casa.
+            </p>
+        </div>
+
+        <!-- 🌟 STAR: BURRITO DE LA CASA ($6.000) -->
+        <article class="star-product-card" id="card-house">
+            <div class="star-badge-ribbon">★ CREACIÓN INSIGNIA</div>
+
+            <div class="star-visual-stage">
+                <div class="star-callout">Doble carne & queso fundido ✨</div>
+
+                <div class="burrito-stage burrito-stage--star">
+                    <span class="burrito-glow" aria-hidden="true"></span>
+                    <span class="burrito-shadow" aria-hidden="true"></span>
+                    <div class="burrito-float">
+                        <img class="burrito-img" src="https://i.postimg.cc/KYwztjhw/de-la-casa-sin-fondo.png" alt="Burrito de la Casa con doble carne y queso fundido" loading="lazy" decoding="async" />
+                    </div>
+                </div>
+
+                <div class="star-ingredients-tags">
+                    <span class="ing-tag">🥩 Cerdo & Carne Molida</span>
+                    <span class="ing-tag">🧀 Queso Fundido</span>
+                    <span class="ing-tag">🌶️ Salsa Especial</span>
+                </div>
+            </div>
+
+            <div class="star-details-col">
+                <span class="star-sub-label">El Favorito de la Feria</span>
+                <h3 class="star-product-title">Burrito de la Casa</h3>
+                
+                <div class="star-price-row">
+                    <span class="product-price-star">$6.000</span>
+                    <span class="price-badge-extra">Doble Proteína Artesanal</span>
+                </div>
+
+                <p class="star-description">
+                    Nuestra obra maestra. Combina carne molida jugosa sazonada y tiernos bocados de cerdo, envueltos en tortilla tostada con queso fundido, lechuga crocante, cebolla y el toque secreto de la salsa de la casa.
+                </p>
+
+                <div class="star-recipe-list">
+                    <strong>Ingredientes:</strong>
+                    Cerdo, carne molida, salsa de la casa, queso, lechuga, cebolla y tortilla.
+                </div>
+
+                <button class="btn-gold-pill" id="btn-add-house" onclick="addToCart('house')" style="width: 100%; justify-content: center; padding: 0.85rem 1.8rem;">
+                    <span>Agregar al carrito — $6.000</span>
+                    <span>+</span>
+                </button>
+            </div>
+        </article>
+
+        <!-- DÚO SECUNDARIO: POLLO & CERDO ($4.000) -->
+        <div class="duo-grid">
+            
+            <!-- BURRITO DE POLLO -->
+            <article class="secondary-product-card" id="card-chicken">
+                <div>
+                    <div class="sec-card-header">
+                        <div>
+                            <span class="sec-badge-text">Clásico Dorado</span>
+                            <h3 class="sec-title">Burrito de Pollo</h3>
+                        </div>
+                        <span class="sec-price">$4.000</span>
+                    </div>
+
+                    <div class="burrito-stage ">
+                    <span class="burrito-glow" aria-hidden="true"></span>
+                    <span class="burrito-shadow" aria-hidden="true"></span>
+                    <div class="burrito-float">
+                        <img class="burrito-img" src="https://i.postimg.cc/Jhvnj0C2/pollo-sin-fondo.png" alt="Burrito de Pollo con queso derretido y lechuga" loading="lazy" decoding="async" />
+                    </div>
+                </div>
+
+                    <p class="sec-desc">
+                        Pechuga desmechada tierna con especias suaves, queso derretido, lechuga crocante y salsa de la casa.
+                    </p>
+
+                    <div class="sec-ingredients-str">
+                        Pollo, salsa de la casa, queso, lechuga, cebolla y tortilla.
+                    </div>
+                </div>
+
+                <button class="btn-add-cart-outline" id="btn-add-chicken" onclick="addToCart('chicken')">
+                    <span>Agregar al carrito — $4.000</span>
+                    <span>+</span>
+                </button>
+            </article>
+
+            <!-- BURRITO DE CERDO -->
+            <article class="secondary-product-card" id="card-pork">
+                <div>
+                    <div class="sec-card-header">
+                        <div>
+                            <span class="sec-badge-text">Sabor Ahumado</span>
+                            <h3 class="sec-title">Burrito de Cerdo</h3>
+                        </div>
+                        <span class="sec-price">$4.000</span>
+                    </div>
+
+                    <div class="burrito-stage ">
+                    <span class="burrito-glow" aria-hidden="true"></span>
+                    <span class="burrito-shadow" aria-hidden="true"></span>
+                    <div class="burrito-float">
+                        <img class="burrito-img" src="https://i.postimg.cc/R0yFwhxY/cerdo-sin-fondo.png" alt="Burrito de Cerdo con cebolla y salsa de la casa" loading="lazy" decoding="async" />
+                    </div>
+                </div>
+
+                    <p class="sec-desc">
+                        Carne de cerdo jugosa marinada lentamente con el sazón tradicional, queso stretch, cebolla y salsa de la casa.
+                    </p>
+
+                    <div class="sec-ingredients-str">
+                        Cerdo, salsa de la casa, queso, lechuga, cebolla y tortilla.
+                    </div>
+                </div>
+
+                <button class="btn-add-cart-outline" id="btn-add-pork" onclick="addToCart('pork')">
+                    <span>Agregar al carrito — $4.000</span>
+                    <span>+</span>
+                </button>
+            </article>
+
+        </div>
+
+        <!-- BEBIDAS HELADAS ($1.500) -->
+        <div class="drinks-section-wrap">
+            <div class="drinks-header">
+                <span class="menu-eyebrow-text" style="font-size: 2.1rem;">Bebidas Heladas</span>
+                <h3 class="font-serif" style="font-size: 1.9rem; color: #fff; margin-top: 0.2rem;">Acompañamiento Perfecto</h3>
+                <p style="font-size: 0.8rem; color: rgba(244,235,213,0.7); margin-top: 0.3rem;">Servidas en vasos escarchados con abundante hielo cristalino.</p>
+            </div>
+
+            <div class="drinks-grid">
+                
+                <!-- POSTOBÓN NEGRA -->
+                <article class="drink-item-card" id="card-black_soda">
+                    <div class="drink-cup-visual">
+                        <svg viewBox="0 0 100 170" fill="none" style="width: 100%; height: 100%;">
+                            <path d="M15 15 L 22 155 C 23 162, 77 162, 78 155 L 85 15 Z" fill="#0A0F0D" opacity="0.65" />
+                            <path d="M18 35 L 23 150 C 24 158, 76 158, 77 150 L 82 35 Z" fill="url(#gradCola)" />
+                            <rect x="30" y="44" width="22" height="22" rx="4" fill="#FFFFFF" fill-opacity="0.35" stroke="#FFFFFF" stroke-width="1" transform="rotate(8 30 44)" />
+                            <rect x="46" y="70" width="20" height="20" rx="3" fill="#FFFFFF" fill-opacity="0.3" stroke="#FFFFFF" stroke-width="1" transform="rotate(-12 46 70)" />
+                            <rect x="28" y="98" width="24" height="24" rx="4" fill="#FFFFFF" fill-opacity="0.25" stroke="#FFFFFF" stroke-width="0.8" transform="rotate(5 28 98)" />
+                            <circle cx="36" cy="130" r="1.8" fill="#F4EBD5" opacity="0.6" class="bubble-1" />
+                            <circle cx="58" cy="115" r="2.2" fill="#F4EBD5" opacity="0.7" class="bubble-2" />
+                            <circle cx="44" cy="85" r="1.5" fill="#F4EBD5" opacity="0.5" class="bubble-3" />
+                            <path d="M22 25 L 26 145" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.4" />
+                            <circle cx="28" cy="65" r="1.2" fill="#FFFFFF" opacity="0.7" />
+                            <circle cx="73" cy="94" r="1" fill="#FFFFFF" opacity="0.7" />
+                            <defs>
+                                <linearGradient id="gradCola" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stop-color="#4A1E0D" />
+                                    <stop offset="50%" stop-color="#240D05" />
+                                    <stop offset="100%" stop-color="#0E0502" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <span class="drink-frost-pill">❄️ Bien Helada</span>
+                    </div>
+
+                    <div class="drink-info-col">
+                        <span class="drink-sub-label">Gaseosa Tradicional</span>
+                        <h4 class="drink-title">Postobón Negra</h4>
+                        <span class="drink-price">$1.500</span>
+                        <p class="drink-desc">Sabor cola efervescente con hielo que equilibra cada bocado.</p>
+                        <button class="btn-add-cart-outline" id="btn-add-black_soda" onclick="addToCart('black_soda')" style="padding: 0.45rem 1rem; width: auto;">
+                            <span>Agregar</span>
+                            <span>+</span>
+                        </button>
+                    </div>
+                </article>
+
+                <!-- POSTOBÓN MANZANA -->
+                <article class="drink-item-card" id="card-apple_soda">
+                    <div class="drink-cup-visual">
+                        <svg viewBox="0 0 100 170" fill="none" style="width: 100%; height: 100%;">
+                            <path d="M15 15 L 22 155 C 23 162, 77 162, 78 155 L 85 15 Z" fill="#0A0F0D" opacity="0.65" />
+                            <path d="M18 35 L 23 150 C 24 158, 76 158, 77 150 L 82 35 Z" fill="url(#gradManzana)" />
+                            <rect x="28" y="46" width="22" height="22" rx="4" fill="#FFFFFF" fill-opacity="0.4" stroke="#FFFFFF" stroke-width="1" transform="rotate(-10 28 46)" />
+                            <rect x="48" y="68" width="20" height="20" rx="3" fill="#FFFFFF" fill-opacity="0.35" stroke="#FFFFFF" stroke-width="1" transform="rotate(14 48 68)" />
+                            <rect x="30" y="100" width="24" height="24" rx="4" fill="#FFFFFF" fill-opacity="0.25" stroke="#FFFFFF" stroke-width="0.8" transform="rotate(-6 30 100)" />
+                            <circle cx="38" cy="132" r="1.8" fill="#FFF0F5" opacity="0.7" class="bubble-1" />
+                            <circle cx="60" cy="110" r="2.2" fill="#FFF0F5" opacity="0.8" class="bubble-2" />
+                            <circle cx="48" cy="80" r="1.6" fill="#FFF0F5" opacity="0.6" class="bubble-3" />
+                            <path d="M22 25 L 26 145" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" opacity="0.45" />
+                            <circle cx="27" cy="60" r="1.3" fill="#FFFFFF" opacity="0.8" />
+                            <circle cx="74" cy="90" r="1" fill="#FFFFFF" opacity="0.8" />
+                            <defs>
+                                <linearGradient id="gradManzana" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stop-color="#FA5290" />
+                                    <stop offset="50%" stop-color="#C91856" />
+                                    <stop offset="100%" stop-color="#7A0830" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <span class="drink-frost-pill">🍎 Manzana Rosa</span>
+                    </div>
+
+                    <div class="drink-info-col">
+                        <span class="drink-sub-label">La Favorita Dulce</span>
+                        <h4 class="drink-title">Postobón Manzana</h4>
+                        <span class="drink-price">$1.500</span>
+                        <p class="drink-desc">El clásico e icónico sabor rosado colombiano con burbujas heladas.</p>
+                        <button class="btn-add-cart-outline" id="btn-add-apple_soda" onclick="addToCart('apple_soda')" style="padding: 0.45rem 1rem; width: auto;">
+                            <span>Agregar</span>
+                            <span>+</span>
+                        </button>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ==========================================================================
+         4. SECCIÓN DE EVENTO (23 DE OCTUBRE)
+         ========================================================================== -->
+    <section class="event-section" id="evento">
+        <div class="event-banner-card">
+            
+            <div class="event-date-hero">
+                <span class="event-badge-label">FECHA OFICIAL</span>
+                <div class="event-date-big">23</div>
+                <div class="event-date-month">DE OCTUBRE</div>
+                <span style="font-size: 0.75rem; color: rgba(244,235,213,0.75); margin-top: 0.35rem;">Feria Escolar Institucional</span>
+            </div>
+
+            <div class="event-info-grid">
+                
+                <div class="event-info-item">
+                    <div class="event-info-label">🏫 Institución</div>
+                    <div class="event-info-val">I.E. San Mateo</div>
+                    <span style="font-size: 0.72rem; color: rgba(216,180,106,0.85);">San Mateo, Magangué, Bolívar</span>
+                </div>
+
+                <div class="event-info-item">
+                    <div class="event-info-label">📍 Modalidad</div>
+                    <div class="event-info-val">Recogida en el Stand</div>
+                    <span style="font-size: 0.72rem; color: rgba(216,180,106,0.85);">Exclusivo para la feria escolar</span>
+                </div>
+
+                <div class="event-info-item">
+                    <div class="event-info-label">💳 Medios de Pago</div>
+                    <div class="event-info-val">Nequi o Efectivo</div>
+                    <span style="font-size: 0.72rem; color: rgba(216,180,106,0.85);">Pago directo en el stand</span>
+                </div>
+
+                <div class="event-info-item">
+                    <div class="event-info-label">🌯 Preparación</div>
+                    <div class="event-info-val">Hecho al Instante</div>
+                    <span style="font-size: 0.72rem; color: rgba(216,180,106,0.85);">Calientes y recién tostados</span>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         5. SECCIÓN DE EQUIPO ("El equipo detrás de Burrilocos")
+         ========================================================================== -->
+    <section class="team-section" id="equipo">
+        
+        <div class="team-header-wrap">
+            <div class="menu-eyebrow">
+                <span class="menu-eyebrow-line"></span>
+                <span class="menu-eyebrow-text">Pasión & Compromiso</span>
+                <span class="menu-eyebrow-line"></span>
+            </div>
+            <h2 class="menu-main-title">El Equipo Detrás de Burrilocos</h2>
+            <p class="menu-intro-p font-script" style="font-size: 1.45rem; color: var(--gold);">
+                "Una idea, mucho sabor y un equipo que lo hace posible."
+            </p>
+        </div>
+
+        <div class="team-grid-students">
+            
+            <div class="team-card">
+                <div class="team-avatar-ring">VS</div>
+                <h3 class="team-member-name">Valentina Salcedo</h3>
+                <span class="team-member-role">Líder del emprendimiento</span>
+            </div>
+
+            <div class="team-card">
+                <div class="team-avatar-ring">DD</div>
+                <h3 class="team-member-name">Daineleth Duque</h3>
+                <span class="team-member-role">Asistente 1</span>
+            </div>
+
+            <div class="team-card">
+                <div class="team-avatar-ring">TL</div>
+                <h3 class="team-member-name">Tallany Lastre</h3>
+                <span class="team-member-role">Asistente 2</span>
+            </div>
+
+            <div class="team-card">
+                <div class="team-avatar-ring">BR</div>
+                <h3 class="team-member-name">Bleidis Rivera</h3>
+                <span class="team-member-role">Asistente 3</span>
+            </div>
+
+            <div class="team-card">
+                <div class="team-avatar-ring">AT</div>
+                <h3 class="team-member-name">Ana Tafur</h3>
+                <span class="team-member-role">Asistente 4</span>
+            </div>
+
+            <div class="team-card">
+                <div class="team-avatar-ring">KS</div>
+                <h3 class="team-member-name">Kelly Sequeda</h3>
+                <span class="team-member-role">Asistente 5</span>
+            </div>
+
+        </div>
+
+        <div class="teacher-spotlight-card">
+            <div class="team-avatar-ring" style="width: 76px; height: 76px; font-size: 1.6rem; flex-shrink: 0; margin-bottom: 0;">
+                WL
+            </div>
+            <div>
+                <span style="font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); font-weight: 700;">
+                    DOCENTE ASESOR & MENTOR
+                </span>
+                <h3 class="font-serif" style="font-size: 1.65rem; color: #fff; margin: 0.2rem 0 0.4rem;">
+                    Wilfrido Leyton
+                </h3>
+                <p style="font-size: 0.84rem; color: rgba(244,235,213,0.85); line-height: 1.5;">
+                    Orientando la visión del proyecto para transformar una iniciativa pedagógica en una experiencia gastronómica real, profesional y formativa.
+                </p>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ==========================================================================
+         6. SECCIÓN INSTITUCIONAL (I.E. SAN MATEO)
+         ========================================================================== -->
+    <section class="institution-section" id="institucion">
+        <div class="institution-card-wrap">
+            
+            <div class="inst-logo-frame">
+                <img 
+                    src="https://i.postimg.cc/FHPvmjLv/images-removebg-preview.png" 
+                    alt="Logo Institución Educativa San Mateo" 
+                    class="inst-official-logo"
+                    onerror="this.style.display='none'"
+                />
+                <span style="font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: #fff;">
+                    I.E. San Mateo
+                </span>
+                <span style="font-size: 0.72rem; color: var(--gold); margin-top: 0.2rem;">Magangué, Bolívar</span>
+            </div>
+
+            <div class="inst-details-col">
+                <div class="menu-eyebrow" style="margin-bottom: 0.2rem;">
+                    <span class="menu-eyebrow-line"></span>
+                    <span class="menu-eyebrow-text">Nuestra Casa Educativa</span>
+                </div>
+                <h2 class="font-serif" style="font-size: clamp(1.8rem, 3.2vw, 2.6rem); color: #fff; line-height: 1.15;">
+                    Institución Educativa San Mateo
+                </h2>
+                
+                <p class="inst-story-p">
+                    Burrilocos nace como una iniciativa estudiantil para compartir creatividad, emprendimiento y mucho sabor durante nuestra feria escolar. Cada burrito representa el esfuerzo conjunto de estudiantes comprometidos con brindar un producto de calidad superior que llene de orgullo a nuestra comunidad educativa.
+                </p>
+
+                <div class="inst-meta-tags">
+                    <span class="inst-meta-tag">📍 San Mateo, Magangué</span>
+                    <span class="inst-meta-tag">🌟 Feria Escolar</span>
+                    <span class="inst-meta-tag">🎓 Proyecto Estudiantil</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==========================================================================
+         7. CONTACTO & GRAN CTA FINAL
+         ========================================================================== -->
+    <section class="contact-cta-section" id="contacto">
+        
+        <div class="cta-content-box">
+            <span class="menu-eyebrow-text" style="font-size: 2.4rem;">Te Esperamos en el Stand</span>
+            <h2 class="cta-title">¿Listo para probar Burrilocos?</h2>
+            
+            <p class="cta-p">
+                Arma tu pedido y disfruta nuestros burritos en la feria escolar. Calientes, con queso fundido y preparados al instante.
+            </p>
+
+            <div class="cta-button-group">
+                <a href="#menu" class="btn-gold-pill" style="padding: 0.85rem 2.2rem; font-size: 0.9rem;">
+                    <span>Ver menú</span>
+                    <span>↓</span>
+                </a>
+
+                <a 
+                    href="https://wa.me/573005237333?text=Hola,%20quiero%20informaci%C3%B3n%20sobre%20BURRILOCOS%20para%20la%20feria%20escolar." 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    class="btn-whatsapp-direct"
+                >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                    </svg>
+                    <span>Ordenar por WhatsApp</span>
+                </a>
+            </div>
+
+            <div class="contact-info-strip">
+                <div class="contact-strip-col">
+                    <span class="contact-strip-title">📱 WHATSAPP OFICIAL</span>
+                    <span class="contact-strip-val">+57 300 523 7333</span>
+                </div>
+                <div class="contact-strip-col">
+                    <span class="contact-strip-title">📍 UBICACIÓN</span>
+                    <span class="contact-strip-val">San Mateo, Magangué, Bolívar</span>
+                </div>
+                <div class="contact-strip-col">
+                    <span class="contact-strip-title">📅 FECHA DE FERIA</span>
+                    <span class="contact-strip-val">23 de octubre • Stand Burrilocos</span>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ==========================================================================
+         8. FOOTER PREMIUM EDITORIAL
+         ========================================================================== -->
+    <footer class="master-footer">
+        
+        <div class="footer-grid-top">
+            
+            <div class="footer-brand-bio">
+                <div style="display: flex; align-items: center; gap: 0.6rem;">
+                    <svg class="brand-flame" viewBox="0 0 24 24" style="width: 22px; height: 22px;">
+                        <path d="M12 23c-4.418 0-8-3.582-8-8 0-3.58 2.37-6.62 5.67-7.65.34-.11.66.19.59.54-.34 1.7.35 3.39 1.74 4.2 1.63.95 2.12 3.03 1.09 4.63-.16.25.04.58.34.54 2.22-.32 4.07-1.84 4.74-3.95.12-.37.62-.43.82-.09C19.34 15.65 16.03 23 12 23z" />
+                    </svg>
+                    <span class="brand-name" style="font-size: 1.1rem;">BURRILOCOS</span>
+                </div>
+                <p style="font-size: 0.8rem; line-height: 1.6; max-width: 380px;">
+                    Burritos artesanales preparados al instante para la feria escolar de la Institución Educativa San Mateo. Magangué, Bolívar, Colombia.
+                </p>
+                <div style="font-size: 0.76rem; color: var(--gold);">
+                    WhatsApp: <strong>+57 300 523 7333</strong>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="footer-heading">EQUIPO ESTUDIANTIL</h4>
+                <ul class="footer-names-list">
+                    <li>Valentina Salcedo</li>
+                    <li>Daineleth Duque</li>
+                    <li>Tallany Lastre</li>
+                    <li>Bleidis Rivera</li>
+                    <li>Ana Tafur</li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="footer-heading">DOCENTE ASESOR</h4>
+                <ul class="footer-names-list">
+                    <li style="color: var(--gold); font-weight: 600;">Wilfrido Leyton</li>
+                    <li style="margin-top: 0.5rem; font-size: 0.72rem; color: rgba(244,235,213,0.5);">
+                        Feria Escolar · 23 de octubre
+                    </li>
+                    <li style="font-size: 0.72rem; color: rgba(244,235,213,0.5);">
+                        I.E. San Mateo • Stand Oficial
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom-bar">
+            <span>© Burrilocos — Emprendimiento Escolar I.E. San Mateo. Todos los derechos reservados.</span>
+            <span style="color: var(--gold);">Recogida exclusiva en el stand • Sin domicilios</span>
+        </div>
+
+    </footer>
+
+    <!-- ==========================================================================
+         STAGE 5 — SHOPPING CART DRAWER ELEVADO & CHECKOUT
+         ========================================================================== -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCartDrawer(false)"></div>
+
+    <aside class="cart-drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-label="Carrito de compras">
+        <div class="cart-sheet-handle" aria-hidden="true"></div>
+
+        <div class="cart-header">
+            <div class="cart-header-title">
+                <span>Tu Pedido</span>
+                <span id="cartCountTitle" class="cart-count-title">(0 productos)</span>
+            </div>
+            <div class="cart-header-actions">
+                <button class="btn-empty-cart" onclick="clearCart()">Vaciar carrito</button>
+                <button class="btn-close-cart" onclick="toggleCartDrawer(false)" aria-label="Cerrar Carrito">✕</button>
+            </div>
+        </div>
+
+        <!-- Zona con scroll propio: productos → descuentos → datos del pedido -->
+        <div class="cart-scroll" id="cartScrollArea">
+            <div class="cart-body-scroll" id="cartItemsList">
+                <!-- Renderizado dinámicamente por JavaScript -->
+            </div>
+
+            <div class="cart-extra" id="cartSummaryContainer">
+                <div class="summary-row subtotal-row">
+                    <span>Subtotal</span>
+                    <span id="summarySubtotal">$0</span>
+                </div>
+
+                <div id="activePromosWrapper" style="display: none;">
+                    <div class="promotions-active-box">
+                        <div class="promo-head" id="rowTotalDiscounts" style="display: none;">
+                            <span class="promo-active-title">Promociones aplicadas</span>
+                            <span id="valTotalDiscounts">-$0</span>
+                        </div>
+                        <div id="promoComboRow" class="promo-active-item" style="display: none;">
+                            <span id="promoComboLabel">✓ Combo burrito + soda</span>
+                            <span id="promoComboValue">-$0</span>
+                        </div>
+                        <div id="promo3x4Row" class="promo-active-item" style="display: none;">
+                            <span id="promo3x4Label">✓ 1 burrito gratis</span>
+                            <span id="promo3x4Value">-$0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario de Checkout Requerido -->
+            <div class="checkout-fields-card">
+                
+                <div class="checkout-field-wrap">
+                    <label for="checkoutCustName">Nombre del Cliente *</label>
+                    <input 
+                        type="text" 
+                        id="checkoutCustName" 
+                        class="checkout-input-text" 
+                        placeholder="Ej. Juan Pérez (Grado 11)" 
+                        oninput="handleNameInput(this)"
+                    />
+                    <div class="inline-validation-msg" id="errCustName">Por favor, escribe tu nombre.</div>
+                </div>
+
+                <div class="checkout-field-wrap">
+                    <label>Método de Pago *</label>
+                    <div class="payment-radio-group">
+                        <label class="payment-radio-option">
+                            <input type="radio" name="paymentOption" value="Nequi" checked onchange="handlePaymentChange()" />
+                            <span>Nequi</span>
+                        </label>
+                        <label class="payment-radio-option">
+                            <input type="radio" name="paymentOption" value="Efectivo" onchange="handlePaymentChange()" />
+                            <span>Efectivo</span>
+                        </label>
+                    </div>
+                    <div class="inline-validation-msg" id="errPayMethod">Selecciona un método de pago.</div>
+                </div>
+
+                <div class="pickup-badge-info">
+                    📍 <strong>Recogida en el stand de Burrilocos</strong><br>
+                    Feria escolar — 23 de octubre • I.E. San Mateo
+                </div>
+
+            </div>
+            </div>
+        </div>
+
+        <!-- Barra fija inferior: total + confirmar -->
+        <div class="cart-sticky-footer" id="cartStickyFooter">
+            <div class="summary-row total-row">
+                <span>Total a pagar</span>
+                <span class="total-amount" id="summaryTotal">$0</span>
+            </div>
+
+            <!-- Botón Oficial de Confirmar Pedido -->
+            <button class="btn-whatsapp-confirm" onclick="processWhatsAppCheckout()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                </svg>
+                <span>Confirmar pedido por WhatsApp</span>
+            </button>
+
+            <!-- Mensaje sutil de pedido preparado -->
+            <div class="whatsapp-preparing-feedback" id="whatsappPreparedNotice">
+                <strong>¡Pedido preparado!</strong><br>
+                Te llevaremos a WhatsApp para confirmar tu pedido.
+            </div>
+        </div>
+    </aside>
+
+    <!-- TOAST NOTIFICACIÓN FEEDBACK -->
+    <div class="toast-notification" id="toastFeedback">
+        <span style="font-size: 1.4rem;">🌯</span>
+        <div>
+            <div style="font-size: 0.68rem; color: var(--gold); font-weight: 700; text-transform: uppercase;">¡Agregado al Carrito!</div>
+            <div id="toastProductName" style="font-size: 0.85rem; font-weight: 600; color: #fff;">Burrito de la Casa</div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+         STAGE 5 — MOTOR JAVASCRIPT: MINIATURAS, MICRO-INTERACCIONES & WHATSAPP
+         ========================================================================== -->
+    <script>
+        /**
+         * 1. MINIATURAS VISUALES VECTORIALES PARA EL CARRITO
+         */
+        const PRODUCT_THUMBNAILS = {
+            house: `<img src="https://i.postimg.cc/KYwztjhw/de-la-casa-sin-fondo.png" alt="" loading="lazy" decoding="async">`,
+            chicken: `<img src="https://i.postimg.cc/Jhvnj0C2/pollo-sin-fondo.png" alt="" loading="lazy" decoding="async">`,
+            pork: `<img src="https://i.postimg.cc/R0yFwhxY/cerdo-sin-fondo.png" alt="" loading="lazy" decoding="async">`,
+            black_soda: `
+                <svg viewBox="0 0 100 100" fill="none">
+                    <path d="M32 15 L 36 85 C 37 89, 63 89, 64 85 L 68 15 Z" fill="#150803" stroke="#D8B46A" stroke-width="1.5"/>
+                    <path d="M34 26 L 37 83 C 38 86, 62 86, 63 83 L 66 26 Z" fill="#3B170B"/>
+                    <rect x="42" y="32" width="12" height="12" rx="2" fill="#FFFFFF" fill-opacity="0.4" stroke="#FFF" stroke-width="0.8" transform="rotate(8 42 32)"/>
+                    <rect x="46" y="52" width="10" height="10" rx="2" fill="#FFFFFF" fill-opacity="0.3" stroke="#FFF" stroke-width="0.8" transform="rotate(-12 46 52)"/>
+                    <circle cx="44" cy="72" r="1.5" fill="#F4EBD5" opacity="0.8"/>
+                    <circle cx="56" cy="65" r="1.8" fill="#F4EBD5" opacity="0.8"/>
+                </svg>
+            `,
+            apple_soda: `
+                <svg viewBox="0 0 100 100" fill="none">
+                    <path d="M32 15 L 36 85 C 37 89, 63 89, 64 85 L 68 15 Z" fill="#2E0312" stroke="#FA5290" stroke-width="1.5"/>
+                    <path d="M34 26 L 37 83 C 38 86, 62 86, 63 83 L 66 26 Z" fill="#C91856"/>
+                    <rect x="42" y="32" width="12" height="12" rx="2" fill="#FFFFFF" fill-opacity="0.45" stroke="#FFF" stroke-width="0.8" transform="rotate(-8 42 32)"/>
+                    <rect x="46" y="52" width="10" height="10" rx="2" fill="#FFFFFF" fill-opacity="0.35" stroke="#FFF" stroke-width="0.8" transform="rotate(14 46 52)"/>
+                    <circle cx="44" cy="72" r="1.5" fill="#FFF0F5" opacity="0.8"/>
+                    <circle cx="56" cy="65" r="1.8" fill="#FFF0F5" opacity="0.8"/>
+                </svg>
+            `
+        };
+
+        /**
+         * 2. CATÁLOGO DE PRODUCTOS (Enteros COP)
+         */
+        const PRODUCTS = {
+            house: {
+                id: 'house',
+                name: 'Burrito de la Casa',
+                category: 'burrito',
+                isEligibleFreePromo: false,
+                price: 6000
+            },
+            chicken: {
+                id: 'chicken',
+                name: 'Burrito de Pollo',
+                category: 'burrito',
+                isEligibleFreePromo: true,
+                price: 4000
+            },
+            pork: {
+                id: 'pork',
+                name: 'Burrito de Cerdo',
+                category: 'burrito',
+                isEligibleFreePromo: true,
+                price: 4000
+            },
+            black_soda: {
+                id: 'black_soda',
+                name: 'Postobón Negra',
+                category: 'soda',
+                isEligibleFreePromo: false,
+                price: 1500
+            },
+            apple_soda: {
+                id: 'apple_soda',
+                name: 'Postobón Manzana',
+                category: 'soda',
+                isEligibleFreePromo: false,
+                price: 1500
+            }
+        };
+
+        const OFFICIAL_WHATSAPP = '573005237333';
+
+        let cart = {};
+
+        /**
+         * 3. INICIALIZACIÓN & PERSISTENCIA LOCALSTORAGE
+         */
+        function initApp() {
+            try {
+                const storedCart = localStorage.getItem('burrilocos_cart_state');
+                if (storedCart) {
+                    cart = JSON.parse(storedCart);
+                }
+                const savedName = localStorage.getItem('burrilocos_customer_name');
+                if (savedName) {
+                    const input = document.getElementById('checkoutCustName');
+                    if (input) input.value = savedName;
+                }
+            } catch (e) {
+                cart = {};
+            }
+            renderCartUI();
+            setupScrollSpy();
+            setupReveal();
+            setupParallax();
+        }
+
+        function persistCart() {
+            try {
+                localStorage.setItem('burrilocos_cart_state', JSON.stringify(cart));
+            } catch (e) {}
+        }
+
+        function handleNameInput(elem) {
+            const err = document.getElementById('errCustName');
+            if (elem.value.trim().length > 0) {
+                elem.classList.remove('has-error');
+                if (err) err.classList.remove('visible');
+            }
+            try {
+                localStorage.setItem('burrilocos_customer_name', elem.value);
+            } catch(e) {}
+        }
+
+        function handlePaymentChange() {
+            const err = document.getElementById('errPayMethod');
+            if (err) err.classList.remove('visible');
+        }
+
+        /**
+         * 4. OPERACIONES DEL CARRITO CON MICRO-INTERACCIONES
+         */
+        function addToCart(productId) {
+            if (!PRODUCTS[productId]) return;
+
+            cart[productId] = (cart[productId] || 0) + 1;
+            persistCart();
+            renderCartUI();
+            showToast(PRODUCTS[productId].name);
+
+            // Micro-interacción en el botón
+            const btn = document.getElementById(`btn-add-${productId}`);
+            if (btn) {
+                const originalHtml = btn.innerHTML;
+                btn.innerHTML = `<span>✓ ¡Agregado!</span>`;
+                btn.style.borderColor = 'var(--emerald-glow)';
+                btn.style.color = 'var(--emerald-glow)';
+                setTimeout(() => {
+                    btn.innerHTML = originalHtml;
+                    btn.style.borderColor = '';
+                    btn.style.color = '';
+                }, 1200);
+            }
+
+            // Pulso en el badge del carrito
+            const badge = document.getElementById('headerCartBadge');
+            if (badge) {
+                badge.classList.remove('cart-badge-popping');
+                void badge.offsetWidth;
+                badge.classList.add('cart-badge-popping');
+            }
+        }
+
+        function updateItemQuantity(productId, delta) {
+            if (!cart[productId]) return;
+
+            const nextQty = cart[productId] + delta;
+            if (nextQty <= 0) {
+                delete cart[productId];
+            } else {
+                cart[productId] = nextQty;
+            }
+            persistCart();
+            renderCartUI();
+        }
+
+        function removeItemFromCart(productId) {
+            if (cart[productId]) {
+                delete cart[productId];
+                persistCart();
+                renderCartUI();
+            }
+        }
+
+        function clearCart() {
+            if (Object.keys(cart).length === 0) return;
+            cart = {};
+            persistCart();
+            renderCartUI();
+        }
+
+        /**
+         * 5. MOTOR DE PRECIOS Y PROMOCIONES (Exact Integer Math)
+         */
+        function calculateCartFinancials() {
+            let subtotal = 0;
+            let totalItemsCount = 0;
+            let totalBurritos = 0;
+            let totalSodas = 0;
+            let eligiblePromoBurritos = 0;
+
+            for (const [id, qty] of Object.entries(cart)) {
+                if (qty <= 0 || !PRODUCTS[id]) continue;
+                const prod = PRODUCTS[id];
+                subtotal += (prod.price * qty);
+                totalItemsCount += qty;
+
+                if (prod.category === 'burrito') {
+                    totalBurritos += qty;
+                    if (prod.isEligibleFreePromo) {
+                        eligiblePromoBurritos += qty;
+                    }
+                } else if (prod.category === 'soda') {
+                    totalSodas += qty;
+                }
+            }
+
+            const comboPairs = Math.min(totalBurritos, totalSodas);
+            const discountCombo = comboPairs * 500;
+
+            const groupsOfFour = Math.floor(totalBurritos / 4);
+            const freeBurritosAwarded = Math.min(groupsOfFour, eligiblePromoBurritos);
+            const discount3x4 = freeBurritosAwarded * 4000;
+
+            const totalDiscounts = discountCombo + discount3x4;
+            const finalTotal = Math.max(0, subtotal - totalDiscounts);
+
+            return {
+                subtotal,
+                totalItemsCount,
+                totalBurritos,
+                totalSodas,
+                comboPairs,
+                discountCombo,
+                freeBurritosAwarded,
+                discount3x4,
+                totalDiscounts,
+                finalTotal
+            };
+        }
+
+        /**
+         * 6. RENDERIZADO VISUAL DEL CARRITO (Con Miniaturas de Producto)
+         */
+        function renderCartUI() {
+            const financials = calculateCartFinancials();
+
+            const headerBadge = document.getElementById('headerCartBadge');
+            if (headerBadge) {
+                headerBadge.innerText = financials.totalItemsCount;
+            }
+
+            const cartTitleCount = document.getElementById('cartCountTitle');
+            if (cartTitleCount) {
+                cartTitleCount.innerText = `(${financials.totalItemsCount} ${financials.totalItemsCount === 1 ? 'producto' : 'productos'})`;
+            }
+
+            const listContainer = document.getElementById('cartItemsList');
+            const summaryContainer = document.getElementById('cartSummaryContainer');
+            if (!listContainer) return;
+
+            const productKeys = Object.keys(cart).filter(id => cart[id] > 0);
+
+            if (productKeys.length === 0) {
+                listContainer.innerHTML = `
+                    <div class="cart-empty-view">
+                        <svg class="cart-empty-art" viewBox="0 0 100 100" fill="none">
+                            <circle cx="50" cy="50" r="44" stroke="#D8B46A" stroke-width="2" stroke-dasharray="4 4" opacity="0.4"/>
+                            <ellipse cx="50" cy="52" rx="30" ry="18" fill="#143A27" stroke="#D8B46A" stroke-width="2"/>
+                            <path d="M30 48 Q 50 38 70 48" stroke="#F4B73F" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M40 54 Q 50 62 60 54" stroke="#5BB34A" stroke-width="2.5" stroke-linecap="round"/>
+                        </svg>
+                        <h4 style="font-family: 'Playfair Display', serif; color: #fff; font-size: 1.25rem; margin-bottom: 0.35rem;">Tu carrito está vacío</h4>
+                        <p style="font-size: 0.82rem; line-height: 1.45; margin-bottom: 1.3rem;">Agrega algo delicioso de Burrilocos.</p>
+                        <button class="btn-gold-pill" onclick="handleEmptyCartViewMenu()">
+                            <span>Ver menú</span>
+                            <span>↓</span>
+                        </button>
+                    </div>
+                `;
+                if (summaryContainer) summaryContainer.style.display = 'none';
+                const stickyEmpty = document.getElementById('cartStickyFooter');
+                if (stickyEmpty) stickyEmpty.style.display = 'none';
+                return;
+            }
+
+            if (summaryContainer) summaryContainer.style.display = 'flex';
+            const stickyFooter = document.getElementById('cartStickyFooter');
+            if (stickyFooter) stickyFooter.style.display = 'flex';
+
+            let html = '';
+            for (const id of productKeys) {
+                const prod = PRODUCTS[id];
+                const qty = cart[id];
+                const itemSubtotal = prod.price * qty;
+                const thumbSvg = PRODUCT_THUMBNAILS[id] || '';
+
+                html += `
+                    <div class="cart-item-row">
+                        <div class="cart-thumb-wrap" aria-hidden="true">${thumbSvg}</div>
+
+                        <span class="item-name">${prod.name}</span>
+
+                        <button class="btn-remove-item" onclick="removeItemFromCart('${id}')" title="Eliminar producto" aria-label="Eliminar ${prod.name}">✕</button>
+
+                        <div class="item-qty-line">
+                            <div class="qty-controls">
+                                <button class="btn-qty" onclick="updateItemQuantity('${id}', -1)" aria-label="Restar una unidad">−</button>
+                                <span class="qty-number">${qty}</span>
+                                <button class="btn-qty" onclick="updateItemQuantity('${id}', 1)" aria-label="Sumar una unidad">+</button>
+                            </div>
+                            <span class="item-unit-price">${formatCOP(prod.price)} c/u</span>
+                        </div>
+
+                        <span class="item-row-subtotal">${formatCOP(itemSubtotal)}</span>
+                    </div>
+                `;
+            }
+            listContainer.innerHTML = html;
+
+            document.getElementById('summarySubtotal').innerText = formatCOP(financials.subtotal);
+
+            const activePromosWrapper = document.getElementById('activePromosWrapper');
+            const promoComboRow = document.getElementById('promoComboRow');
+            const promo3x4Row = document.getElementById('promo3x4Row');
+            const rowTotalDiscounts = document.getElementById('rowTotalDiscounts');
+
+            if (financials.totalDiscounts > 0) {
+                if (activePromosWrapper) activePromosWrapper.style.display = 'block';
+
+                if (financials.discountCombo > 0 && promoComboRow) {
+                    promoComboRow.style.display = 'flex';
+                    document.getElementById('promoComboValue').innerText = `-${formatCOP(financials.discountCombo)}`;
+                    document.getElementById('promoComboLabel').innerText = `✓ Combo burrito + soda${financials.comboPairs > 1 ? ' ×' + financials.comboPairs : ''}`;
+                } else if (promoComboRow) {
+                    promoComboRow.style.display = 'none';
+                }
+
+                if (financials.discount3x4 > 0 && promo3x4Row) {
+                    promo3x4Row.style.display = 'flex';
+                    document.getElementById('promo3x4Value').innerText = `-${formatCOP(financials.discount3x4)}`;
+                    document.getElementById('promo3x4Label').innerText = `✓ ${financials.freeBurritosAwarded} ${financials.freeBurritosAwarded === 1 ? 'burrito gratis' : 'burritos gratis'}`;
+                } else if (promo3x4Row) {
+                    promo3x4Row.style.display = 'none';
+                }
+
+                if (rowTotalDiscounts) {
+                    rowTotalDiscounts.style.display = 'flex';
+                    document.getElementById('valTotalDiscounts').innerText = `-${formatCOP(financials.totalDiscounts)}`;
+                }
+            } else {
+                if (activePromosWrapper) activePromosWrapper.style.display = 'none';
+                if (rowTotalDiscounts) rowTotalDiscounts.style.display = 'none';
+            }
+
+            const totalEl = document.getElementById('summaryTotal');
+            if (totalEl) {
+                totalEl.innerText = formatCOP(financials.finalTotal);
+                totalEl.classList.remove('price-popping');
+                void totalEl.offsetWidth;
+                totalEl.classList.add('price-popping');
+            }
+        }
+
+        function formatCOP(val) {
+            return '$' + Math.round(val).toLocaleString('es-CO');
+        }
+
+        function toggleCartDrawer(open) {
+            const drawer = document.getElementById('cartDrawer');
+            const overlay = document.getElementById('cartOverlay');
+            if (!drawer || !overlay) return;
+
+            if (open) {
+                drawer.classList.add('active');
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            } else {
+                drawer.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        function handleEmptyCartViewMenu() {
+            toggleCartDrawer(false);
+            const menuElem = document.getElementById('menu');
+            if (menuElem) menuElem.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu(force) {
+            const menu = document.getElementById('mobileMenu');
+            const btn = document.querySelector('.hamburger-btn');
+            if (!menu) return;
+            const open = (typeof force === 'boolean') ? force : !menu.classList.contains('open');
+            menu.classList.toggle('open', open);
+            if (btn) {
+                btn.classList.toggle('is-open', open);
+                btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                btn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+            }
+        }
+
+        let toastTimeout;
+        function showToast(productName) {
+            const toast = document.getElementById('toastFeedback');
+            const label = document.getElementById('toastProductName');
+            if (!toast || !label) return;
+
+            label.innerText = productName;
+            toast.classList.add('active');
+
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.remove('active');
+            }, 2600);
+        }
+
+        /**
+         * Formato COP con punto de miles garantizado ($6.000) para el mensaje de WhatsApp
+         */
+        function formatCOPMessage(val) {
+            const n = Math.round(val);
+            return '$' + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        }
+
+        /**
+         * Construye el resumen del pedido con formato WhatsApp (*negrita*)
+         */
+        function buildWhatsAppOrderMessage(customerName, paymentMethod, financials) {
+            const SEP = '━━━━━━━━━━━━━━';
+            const money = formatCOPMessage;
+            const lines = [];
+
+            lines.push('🌯 *BURRILOCOS*');
+            lines.push('✨ *¡Nuevo pedido!*');
+            lines.push('');
+            lines.push('👤 *DATOS DEL CLIENTE*');
+            lines.push(`• *Nombre:* ${customerName}`);
+            lines.push(`• *Método de pago:* ${paymentMethod}`);
+            lines.push('');
+            lines.push(SEP);
+            lines.push('🛒 *RESUMEN DEL PEDIDO*');
+
+            for (const [id, qty] of Object.entries(cart)) {
+                if (qty <= 0 || !PRODUCTS[id]) continue;
+                const prod = PRODUCTS[id];
+                const icon = prod.category === 'soda' ? '🥤' : '🌯';
+                lines.push('');
+                lines.push(`${icon} *${prod.name}*`);
+                lines.push(`Cantidad: *${qty}*`);
+                lines.push(`Precio unitario: ${money(prod.price)}`);
+                lines.push(`Subtotal: *${money(prod.price * qty)}*`);
+            }
+
+            lines.push('');
+            lines.push(SEP);
+
+            if (financials.totalDiscounts > 0) {
+                lines.push('🎁 *PROMOCIONES APLICADAS*');
+                if (financials.discountCombo > 0) {
+                    const comboLabel = 'Combo burrito + soda' + (financials.comboPairs > 1 ? ' ×' + financials.comboPairs : '');
+                    lines.push(`• ${comboLabel}: *-${money(financials.discountCombo)}*`);
+                }
+                if (financials.discount3x4 > 0) {
+                    const freeLabel = financials.freeBurritosAwarded === 1 ? 'burrito gratis' : 'burritos gratis';
+                    lines.push(`• ${financials.freeBurritosAwarded} ${freeLabel}: *-${money(financials.discount3x4)}*`);
+                }
+                lines.push('');
+                lines.push(SEP);
+            }
+
+            lines.push('💰 *RESUMEN DE PAGO*');
+            lines.push(`• Subtotal: ${money(financials.subtotal)}`);
+            if (financials.totalDiscounts > 0) {
+                lines.push(`• Descuentos: -${money(financials.totalDiscounts)}`);
+            }
+            lines.push('');
+            lines.push(`🔥 *TOTAL A PAGAR: ${money(financials.finalTotal)}*`);
+            lines.push('');
+            lines.push(SEP);
+            lines.push('📍 *RECOGIDA*');
+            lines.push('📌 Lugar: *Puesto de BURRILOCOS*');
+            lines.push('🏫 Institución Educativa San Mateo');
+            lines.push('📅 Fecha: *23 de octubre*');
+            lines.push('');
+            lines.push('❤️ _¡Gracias por apoyar nuestro emprendimiento escolar!_');
+
+            return lines.join('\n');
+        }
+
+        /**
+         * 7. CHECKOUT DE WHATSAPP DINÁMICO & VALIDACIÓN INLINE
+         */
+        function processWhatsAppCheckout() {
+            const financials = calculateCartFinancials();
+            if (financials.totalItemsCount === 0) return;
+
+            const nameInput = document.getElementById('checkoutCustName');
+            const errName = document.getElementById('errCustName');
+            const customerName = nameInput ? nameInput.value.trim() : '';
+
+            let hasError = false;
+
+            if (!customerName) {
+                if (nameInput) nameInput.classList.add('has-error');
+                if (errName) errName.classList.add('visible');
+                hasError = true;
+            } else {
+                if (nameInput) nameInput.classList.remove('has-error');
+                if (errName) errName.classList.remove('visible');
+            }
+
+            const paymentRadio = document.querySelector('input[name="paymentOption"]:checked');
+            const errPay = document.getElementById('errPayMethod');
+
+            if (!paymentRadio) {
+                if (errPay) errPay.classList.add('visible');
+                hasError = true;
+            } else {
+                if (errPay) errPay.classList.remove('visible');
+            }
+
+            if (hasError) {
+                const target = !customerName ? nameInput : errPay;
+                if (target && target.scrollIntoView) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                if (!customerName && nameInput) nameInput.focus({ preventScroll: true });
+                return;
+            }
+
+            const paymentMethod = paymentRadio.value;
+
+            const msg = buildWhatsAppOrderMessage(customerName, paymentMethod, financials);
+
+            const feedbackNotice = document.getElementById('whatsappPreparedNotice');
+            if (feedbackNotice) {
+                feedbackNotice.classList.add('visible');
+                setTimeout(() => {
+                    feedbackNotice.classList.remove('visible');
+                }, 4000);
+            }
+
+            const targetUrl = `https://wa.me/${OFFICIAL_WHATSAPP}?text=${encodeURIComponent(msg)}`;
+            setTimeout(() => {
+                window.open(targetUrl, '_blank');
+            }, 300);
+        }
+
+        /**
+         * 8. SCROLL SPY PARA NAVEGACIÓN ACTIVA
+         */
+        function setupScrollSpy() {
+            const sections = document.querySelectorAll('section[id], div[id="inicio"]');
+            const navLinks = document.querySelectorAll('#desktopNav a');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                const scrollPos = window.scrollY + 100;
+
+                sections.forEach(section => {
+                    const top = section.offsetTop;
+                    const height = section.offsetHeight;
+                    if (scrollPos >= top && scrollPos < top + height) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }, { passive: true });
+
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    toggleCartDrawer(false);
+                    toggleMobileMenu(false);
+                }
+            });
+        }
+
+        /**
+         * 9. ANIMACIONES DE ENTRADA AL HACER SCROLL (respeta prefers-reduced-motion)
+         */
+        function setupReveal() {
+            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduce || !('IntersectionObserver' in window)) return;
+
+            const groups = [
+                ['.menu-header-wrap', ''],
+                ['.star-product-card', 'scale'],
+                ['.duo-grid .secondary-product-card', ''],
+                ['.drinks-header', ''],
+                ['.drink-item-card', ''],
+                ['.event-banner-card', 'scale'],
+                ['.team-header-wrap', ''],
+                ['.team-card', ''],
+                ['.teacher-spotlight-card', ''],
+                ['.institution-card-wrap', 'scale'],
+                ['.cta-title', ''],
+                ['.contact-strip-col', ''],
+                ['.master-footer', '']
+            ];
+
+            const targets = [];
+            groups.forEach(([sel, mode]) => {
+                const nodes = document.querySelectorAll(sel);
+                nodes.forEach((el, idx) => {
+                    el.setAttribute('data-reveal', mode || 'up');
+                    el.style.setProperty('--d', ((idx % 4) * 110) + 'ms');
+                    targets.push(el);
+                });
+            });
+
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    const el = entry.target;
+                    el.classList.add('is-visible');
+                    io.unobserve(el);
+                    // Al terminar la entrada se libera el elemento para que sus hovers originales funcionen normal
+                    setTimeout(() => {
+                        el.removeAttribute('data-reveal');
+                        el.classList.remove('is-visible');
+                        el.style.removeProperty('--d');
+                    }, 1500 + parseInt(el.style.getPropertyValue('--d') || '0', 10));
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+
+            targets.forEach(el => io.observe(el));
+        }
+
+        /**
+         * 10. MOVIMIENTO SUTIL DE LA BOTÁNICA AL HACER SCROLL
+         */
+        function setupParallax() {
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            const leaves = Array.from(document.querySelectorAll('.botanical-leaf'));
+            if (!leaves.length) return;
+            leaves.forEach((leaf, i) => { leaf.dataset.f = (i % 2 === 0) ? '0.05' : '-0.04'; });
+
+            let ticking = false;
+            const update = () => {
+                const y = window.scrollY;
+                leaves.forEach(leaf => {
+                    const section = leaf.closest('.menu-section');
+                    const rel = section ? (y - section.offsetTop + window.innerHeight * 0.5) : y;
+                    const val = Math.max(-40, Math.min(40, rel * parseFloat(leaf.dataset.f)));
+                    leaf.style.setProperty('--p', val.toFixed(1));
+                });
+                ticking = false;
+            };
+            window.addEventListener('scroll', () => {
+                if (!ticking) { ticking = true; requestAnimationFrame(update); }
+            }, { passive: true });
+            update();
+        }
+
+        // Cierra el menú móvil al tocar fuera o al pasar a escritorio
+        document.addEventListener('click', (e) => {
+            const menu = document.getElementById('mobileMenu');
+            if (!menu || !menu.classList.contains('open')) return;
+            if (e.target.closest('#mobileMenu') || e.target.closest('.hamburger-btn')) return;
+            toggleMobileMenu(false);
+        });
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 890) toggleMobileMenu(false);
+        }, { passive: true });
+
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+
+</body>
+</html>
